@@ -64,4 +64,77 @@ vector<T> readBinaryFile(const string &fileName) {
 	
 }
 
+
+/**
+ * @brief Elimina un registro específico de un archivo binario.
+ *
+ * Esta función plantilla permite eliminar un elemento de tipo T almacenado en un
+ * archivo binario. Para lograrlo, primero lee todos los registros existentes en
+ * un vector temporal, luego reescribe el archivo desde cero,
+ * omitiendo aquel registro cuyo atributo `id` coincida con el del registro
+ * buscado.
+ *
+ * @tparam T Tipo de dato del registro. ( struct )
+ *          que pueda escribirse y leerse en binario, y debe contener
+ *          obligatoriamente un atributo público llamado `id`.
+ *
+ * @param fileName Nombre del archivo binario en el cual se realizará la operación.
+ * @param dato Registro que contiene el `id` del elemento que se busca eliminar.
+ *
+ * @return true Si el archivo se abrió correctamente y la operación se ejecutó.
+ * @return false Si el archivo no pudo abrirse o si ocurrió un error.
+ */
+
+
+template <typename T>
+bool deleteOnBinaryFile(const string &fileName, const T &dato) {
+	vector<T> data = readBinaryFile(fileName);
+	
+	ofstream file(fileName, ios::binary | ios::trunc);
+	if(!file.is_open()) { return false; }
+	
+	for(const T &d : data) {
+		if(d.id != dato.id) {
+			file.write(reinterpret_cast<const char*>(&d), sizeof(T));
+		}
+	}
+	file.close();
+	
+	return true;
+}
+
+
+/**
+ * @brief Actualiza el registro con el mismo ID dentro del archivo binario.
+ *
+ * Lee todos los registros, modifica el que coincide con object.id
+ * cambiando el valor del campo monto, y reescribe el archivo completo.
+ *
+ * @tparam Type1 Tipo del registro almacenado en el archivo.
+ * @tparam Type2 Tipo del valor de cambio.
+ * @param fileName Nombre del archivo binario.
+ * @param object Registro que contiene el ID del elemento a actualizar.
+ * @param change Nuevo valor para el campo monto.
+ * @return true Si se pudo abrir/escribir el archivo, false en caso contrario.
+ */
+
+
+template <typename Type1, typename Type2>
+bool updateBinaryFile(const string &fileName, const Type1 &object, const Type2 &change) {
+	vector<Type1> data = readBinaryFile(fileName);
+	
+	ofstream file(fileName, ios::binary | ios::trunc);
+	if(!file.is_open()) { return false; }
+	
+	for(Type1 d : data) {
+		if(d.id == object.id) {
+			d.monto = change;
+		}
+		
+		file.write(reinterpret_cast<const char*>(&d), sizeof(d));
+	}
+	file.close();
+	
+	return true;
+}
 #endif
