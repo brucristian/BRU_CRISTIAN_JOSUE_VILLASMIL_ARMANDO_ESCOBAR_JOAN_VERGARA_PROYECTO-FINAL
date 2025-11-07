@@ -1,5 +1,5 @@
 #ifndef FILEMANAGER_H
-#defina FILEMANAGER_H
+#define FILEMANAGER_H
 
 #include <cstring>
 #include <fstring>
@@ -10,7 +10,7 @@ using namespace std;
 
 /**
  * @brief Escribe un registro en un archivo binario.
- *
+ * 
  * Esta función abre un archivo binario en modo append y escribe
  * el dato proporcionado al final del archivo. Si el archivo no
  * existe, se crea automáticamente.
