@@ -4,6 +4,7 @@
 #include <string>
 #include <vector>
 #include "convertions.h"
+#include "filemanager.h"
 
 bool bisiesto(int year) {
 	return ((year % 4 == 0 && year % 100 != 0) || year % 400 == 0);
@@ -39,6 +40,18 @@ bool dateValidation(const string &data) {
 	if(date[0] < 1 || date[0] > day) return false;
 	
 	return true;
+}
+
+template <typename idType, typename T>
+bool existsById(const string &fileName, idType &id) {
+	vector<T> data = readBinaryFile<T>(fileName);
+	
+	for(T regis : data) {
+		if(regis.id == id) 
+			return true;
+	}
+	
+	return false;
 }
 
 
