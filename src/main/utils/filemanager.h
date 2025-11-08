@@ -2,7 +2,7 @@
 #define FILEMANAGER_H
 
 #include <cstring>
-#include <fstring>
+#include <fstream>
 #include <vector>
 
 using namespace std;
