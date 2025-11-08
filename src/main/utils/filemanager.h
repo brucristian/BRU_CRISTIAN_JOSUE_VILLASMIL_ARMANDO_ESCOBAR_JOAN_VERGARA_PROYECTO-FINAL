@@ -88,7 +88,7 @@ vector<T> readBinaryFile(const string &fileName) {
 
 template <typename T>
 bool deleteOnBinaryFile(const string &fileName, const T &dato) {
-	vector<T> data = readBinaryFile(fileName);
+	vector<T> data = readBinaryFile<T>(fileName);
 	
 	ofstream file(fileName, ios::binary | ios::trunc);
 	if(!file.is_open()) { return false; }
@@ -121,7 +121,7 @@ bool deleteOnBinaryFile(const string &fileName, const T &dato) {
 
 template <typename Type1, typename Type2>
 bool updateBinaryFile(const string &fileName, const Type1 &object, const Type2 &change) {
-	vector<Type1> data = readBinaryFile(fileName);
+	vector<Type1> data = readBinaryFile<Type1>(fileName);
 	
 	ofstream file(fileName, ios::binary | ios::trunc);
 	if(!file.is_open()) { return false; }
