@@ -13,6 +13,7 @@
 #include <vector>
 #include <string>
 #include <cstring>
+#include <iomanip>
 #include "../model/estudiante.h"
 #include "../utils/filemanager.h"
 #include "../utils/validaciones.h"
@@ -29,19 +30,20 @@ using namespace std;
  * @param id Identificación del estudiante a buscar.
  * @return Estudiante Estructura con los datos del estudiante encontrado.
  */
-Estudiante buscarEstudiante(long long id){
-	 vector<Estudiante> estudiantes = readBinaryFile<Estudiante>("../data/estudiantes.dat");
-	 Estudiante e;
-	  
-	
-	for(Estudiante &p : estudiantes){
-	    if(p.id == id){
-	    	e = p;
-	    	break;
-		}
-	}
-   return e;
+Estudiante buscarEstudiante(long long id) {
+    vector<Estudiante> estudiantes = readBinaryFile<Estudiante>("../data/estudiantes.dat");
+    Estudiante e;
+
+    for (Estudiante &p : estudiantes) {
+        if (p.id == id) {
+            e = p;
+            break;
+        }
+    }
+
+    return e;
 }
+
 
 /**
  * @brief Registra un nuevo estudiante en el archivo binario.
@@ -58,34 +60,27 @@ Estudiante buscarEstudiante(long long id){
  * @return false Si el ID ya existe, el saldo es insuficiente.
  */
 
-bool registroEstudiante(long long &id, char name[50], int &grado, double &saldo){
+bool registroEstudiante(long long &id, char name[50], int &grado, double &saldo) {
     vector<Estudiante> estudiantes = readBinaryFile<Estudiante>("../data/estudiantes.dat");
+
+    if (!estudiantes.empty()) {
+        for (Estudiante &e : estudiantes) {
+            if (id == e.id)
+                return false;  
+        }
+    }
+
     
-    if(!estudiantes.empty()){
-    	
-       for(Estudiante &e : estudiantes){
-    	
-    	  if(id == e.id) return false; 	
-       	
-       }
-	
-	}
-    
-	if(saldo < 5000) return false;
-	
-	
-	
-	Estudiante e;
-	
-	e.grado = grado;
-	e.id = id;
-	strcpy(e.name, name);
-	e.saldo = saldo;
-	
-	
-	
+    if (saldo < 5000)
+        return false;
+
+    Estudiante e;
+    e.grado = grado;
+    e.id = id;
+    strcpy(e.name, name);
+    e.saldo = saldo;
+
     return writeBinaryFile("../data/estudiantes.dat", e);
-		
 }
 
 /**
@@ -100,22 +95,24 @@ bool registroEstudiante(long long &id, char name[50], int &grado, double &saldo)
  * @return false Si el monto es inválido o el estudiante no existe.
  */
 
-bool recargaEstudiante(long long id, double recarga){
-	 Estudiante e;
-	 
-	 
-	 if(recarga>500000 || recarga<0){
-	   cout<<"\n*****Monto de recarga no valido****"<<endl;
-	   return false;	
-	 }
-	
-	
-    
-	if (existsById<long long, Estudiante>("../data/estudiantes.dat", id))	e = buscarEstudiante(id);
-	else return false;
+bool recargaEstudiante(long long id, double recarga) {
+    Estudiante e;
 
-    
-	return updateBinaryFile("../data/estudiantes.dat", e, recarga);
+ 
+    if (recarga > 500000 || recarga < 0) {
+        cout << "\n==============================================" << endl;
+        cout << "           Monto de recarga no válido         " << endl;
+        cout << "==============================================" << endl;
+        return false;
+    }
+
+    if (existsById<long long, Estudiante>("../data/estudiantes.dat", id)) {
+        e = buscarEstudiante(id);
+    } else {
+        return false;
+    }
+
+    return updateBinaryFile("../data/estudiantes.dat", e, recarga);
 }
 
 /**
@@ -129,15 +126,18 @@ bool recargaEstudiante(long long id, double recarga){
  * @return false Si el estudiante no existe.
  */
 
-bool eliminarEstudiante(long long id){
-	Estudiante e;
-	 
-	if (existsById<long long, Estudiante>("../data/estudiantes.dat", id))	e = buscarEstudiante(id);
-	else return false;
-	 
-	return deleteOnBinaryFile("../data/estudiantes.dat", e);
-}
+bool eliminarEstudiante(long long id) {
+    Estudiante e;
 
+    
+    if (existsById<long long, Estudiante>("../data/estudiantes.dat", id)) {
+        e = buscarEstudiante(id);
+    } else {
+        return false;
+    }
+
+    return deleteOnBinaryFile("../data/estudiantes.dat", e);
+}
 /**
  * @brief Muestra la información de un estudiante por consola.
  * 
@@ -147,17 +147,29 @@ bool eliminarEstudiante(long long id){
  * @param id Identificación del estudiante a consultar.
  */
 
-void consultarEstudiante(long long id){
-	Estudiante e;
-	
-	if (existsById<long long, Estudiante>("../data/estudiantes.dat", id)){
-		e = buscarEstudiante(id);
-		cout << "\n | Cedula: ["<<e.id<<"] | Nombre: ["<<e.name<<"] | Grado: ["<<e.grado<<"] | Saldo: ["<<e.saldo<<"] |"<<endl;	
-		
-	}else{
-		cout<<"*****ERROR!!! No hay registros con la cedula ["<<id<<"]*****"<<endl;
-		
-	}
+void consultarEstudiante(long long id){ 
+    Estudiante e;
+
+    if (existsById<long long, Estudiante>("../data/estudiantes.dat", id)) {
+    e = buscarEstudiante(id);
+
+       cout << "\n==============================================\n";
+       cout << "           DATOS DEL ESTUDIANTE              \n";
+       cout << "==============================================\n";
+       cout << "| Cedula       | Nombre            | Grado | Saldo  |\n";
+       cout << "----------------------------------------------\n";
+       cout << "| " << e.id 
+            << " | " << setw(16) << left << e.name 
+            << " | " << setw(5) << left << e.grado 
+            << " | " << setw(6) << right << e.saldo 
+            << " |\n";
+        cout << "==============================================\n";
+    } else {
+      cout << "\n==============================================" << endl;
+      cout << "ERROR: No hay registros con la cedula [" << id << "]" << endl;
+      cout << "==============================================" << endl;
+    }
+
 }       
 
 #endif
