@@ -6,6 +6,7 @@
 #include <cstring>
 #include "../model/estudiante.h"
 #include "../utils/filemanager.h"
+#include "../utils/validaciones.h"
 
 
 using namespace std;
@@ -14,6 +15,7 @@ using namespace std;
 Estudiante buscarEstudiante(long long id){
 	 vector<Estudiante> estudiantes = readBinaryFile<Estudiante>("../data/estudiantes.dat");
 	 Estudiante e;
+	  
 	
 	for(Estudiante &p : estudiantes){
 	    if(p.id == id){
@@ -57,7 +59,6 @@ bool registroEstudiante(long long &id, char name[50], int &grado, double &saldo)
 }
 
 bool recargaEstudiante(long long id, double recarga){
-	 vector<Estudiante> estudiantes = readBinaryFile<Estudiante>("../data/estudiantes.dat");
 	 Estudiante e;
 	 
 	 
@@ -67,20 +68,34 @@ bool recargaEstudiante(long long id, double recarga){
 	 }
 	
 	
-    e = buscarEstudiante(id);
+    
+	if (existsById<long long, Estudiante>("../data/estudiantes.dat", id))	e = buscarEstudiante(id);
+	else return false;
+
     
 	return updateBinaryFile("../data/estudiantes.dat", e, recarga);
 }
 
 bool eliminarEstudiante(long long id){
-	 vector<Estudiante> estudiantes = readBinaryFile<Estudiante>("../data/estudiantes.dat");
-	 Estudiante e;
+	Estudiante e;
 	 
-	 e = buscarEstudiante(id);
+	if (existsById<long long, Estudiante>("../data/estudiantes.dat", id))	e = buscarEstudiante(id);
+	else return false;
 	 
-	 return deleteOnBinaryFile("../data/estudiantes.dat", e);
+	return deleteOnBinaryFile("../data/estudiantes.dat", e);
 }
 
-       
+void consultarEstudiante(long long id){
+	Estudiante e;
+	
+	if (existsById<long long, Estudiante>("../data/estudiantes.dat", id)){
+		e = buscarEstudiante(id);
+		cout << "\n | Id: ["<<e.id<<"] | Nombre: ["<<e.name<<"] | Grado: ["<<e.grado<<"] | Saldo: ["<<e.saldo<<"] |"<<endl;	
+		
+	}else{
+		cout<<"*****ERROR!!! No hay registros con el id ["<<id<<"]"<<endl;
+		
+	}
+}       
 
 #endif
