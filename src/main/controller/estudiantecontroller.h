@@ -1,3 +1,12 @@
+/**
+ * @file estudiantecontroller.h
+ * @brief Controlador para gestionar las operaciones CRUD de los estudiantes.
+ * 
+ * Este archivo contiene las funciones encargadas de manejar el registro,
+ * búsqueda, recarga, eliminación y consulta de estudiantes dentro del
+ * archivo binario "estudiantes.dat".
+ */
+
 #ifndef ESTUDIANTECONTROLLER_H
 #define ESTUDIANTECONTROLLER_H
 #include <iostream>
@@ -11,7 +20,15 @@
 
 using namespace std;
 
-
+/**
+ * @brief Busca un estudiante en el archivo binario por su ID.
+ * 
+ * Esta función recorre el archivo "estudiantes.dat" y retorna el
+ * registro del estudiante cuyo ID coincida con el proporcionado.
+ * 
+ * @param id Identificación del estudiante a buscar.
+ * @return Estudiante Estructura con los datos del estudiante encontrado.
+ */
 Estudiante buscarEstudiante(long long id){
 	 vector<Estudiante> estudiantes = readBinaryFile<Estudiante>("../data/estudiantes.dat");
 	 Estudiante e;
@@ -26,7 +43,20 @@ Estudiante buscarEstudiante(long long id){
    return e;
 }
 
-
+/**
+ * @brief Registra un nuevo estudiante en el archivo binario.
+ * 
+ * Verifica que el ID no esté duplicado y que el saldo inicial sea
+ * mayor o igual a 5000. Si cumple las condiciones, crea el registro
+ * del estudiante y lo guarda en el archivo.
+ * 
+ * @param id Identificación del estudiante.
+ * @param name Nombre del estudiante.
+ * @param grado Grado del estudiante.
+ * @param saldo Saldo inicial del estudiante.
+ * @return true Si el registro se realizó correctamente.
+ * @return false Si el ID ya existe, el saldo es insuficiente.
+ */
 
 bool registroEstudiante(long long &id, char name[50], int &grado, double &saldo){
     vector<Estudiante> estudiantes = readBinaryFile<Estudiante>("../data/estudiantes.dat");
@@ -58,6 +88,18 @@ bool registroEstudiante(long long &id, char name[50], int &grado, double &saldo)
 		
 }
 
+/**
+ * @brief Realiza una recarga al saldo de un estudiante.
+ * 
+ * Verifica que el monto sea válido (entre 0 y 500000) y que el estudiante exista.
+ * Luego actualiza el saldo del registro correspondiente en el archivo binario.
+ * 
+ * @param id Identificación del estudiante.
+ * @param recarga Monto de recarga a aplicar.
+ * @return true Si la recarga se realizó correctamente.
+ * @return false Si el monto es inválido o el estudiante no existe.
+ */
+
 bool recargaEstudiante(long long id, double recarga){
 	 Estudiante e;
 	 
@@ -76,6 +118,17 @@ bool recargaEstudiante(long long id, double recarga){
 	return updateBinaryFile("../data/estudiantes.dat", e, recarga);
 }
 
+/**
+ * @brief Elimina un registro de estudiante del archivo binario.
+ * 
+ * Busca el estudiante por su ID y, si existe, elimina su registro
+ * del archivo `estudiantes.dat`.
+ * 
+ * @param id Identificación del estudiante a eliminar.
+ * @return true Si el registro se eliminó correctamente.
+ * @return false Si el estudiante no existe.
+ */
+
 bool eliminarEstudiante(long long id){
 	Estudiante e;
 	 
@@ -85,15 +138,24 @@ bool eliminarEstudiante(long long id){
 	return deleteOnBinaryFile("../data/estudiantes.dat", e);
 }
 
+/**
+ * @brief Muestra la información de un estudiante por consola.
+ * 
+ * Busca el estudiante en el archivo y, si existe, imprime sus datos.
+ * Si no se encuentra, muestra un mensaje de error.
+ * 
+ * @param id Identificación del estudiante a consultar.
+ */
+
 void consultarEstudiante(long long id){
 	Estudiante e;
 	
 	if (existsById<long long, Estudiante>("../data/estudiantes.dat", id)){
 		e = buscarEstudiante(id);
-		cout << "\n | Id: ["<<e.id<<"] | Nombre: ["<<e.name<<"] | Grado: ["<<e.grado<<"] | Saldo: ["<<e.saldo<<"] |"<<endl;	
+		cout << "\n | Cedula: ["<<e.id<<"] | Nombre: ["<<e.name<<"] | Grado: ["<<e.grado<<"] | Saldo: ["<<e.saldo<<"] |"<<endl;	
 		
 	}else{
-		cout<<"*****ERROR!!! No hay registros con el id ["<<id<<"]"<<endl;
+		cout<<"*****ERROR!!! No hay registros con la cedula ["<<id<<"]*****"<<endl;
 		
 	}
 }       
