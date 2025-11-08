@@ -7,7 +7,6 @@
 
 using namespace std;
 
-
 /**
  * @brief Escribe un registro en un archivo binario.
  * 
