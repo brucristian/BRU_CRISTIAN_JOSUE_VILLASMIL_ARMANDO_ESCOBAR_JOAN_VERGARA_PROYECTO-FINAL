@@ -18,7 +18,6 @@
 #include "../utils/filemanager.h"
 #include "../utils/validaciones.h"
 
-
 using namespace std;
 
 /**
