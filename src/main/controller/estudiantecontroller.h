@@ -31,7 +31,7 @@ using namespace std;
  * @return Estudiante Estructura con los datos del estudiante encontrado.
  */
 Estudiante buscarEstudiante(long long id) {
-    vector<Estudiante> estudiantes = readBinaryFile<Estudiante>("../data/estudiantes.dat");
+    vector<Estudiante> estudiantes = readBinaryFile<Estudiante>("data/estudiantes.dat");
     Estudiante e;
 
     for (Estudiante &p : estudiantes) {
@@ -61,7 +61,7 @@ Estudiante buscarEstudiante(long long id) {
  */
 
 bool registroEstudiante(long long &id, char name[50], int &grado, double &saldo) {
-    vector<Estudiante> estudiantes = readBinaryFile<Estudiante>("../data/estudiantes.dat");
+    vector<Estudiante> estudiantes = readBinaryFile<Estudiante>("data/estudiantes.dat");
 
     if (!estudiantes.empty()) {
         for (Estudiante &e : estudiantes) {
@@ -80,7 +80,7 @@ bool registroEstudiante(long long &id, char name[50], int &grado, double &saldo)
     strcpy(e.name, name);
     e.saldo = saldo;
 
-    return writeBinaryFile("../data/estudiantes.dat", e);
+    return writeBinaryFile("data/estudiantes.dat", e);
 }
 
 /**
@@ -106,13 +106,13 @@ bool recargaEstudiante(long long id, double recarga) {
         return false;
     }
 
-    if (existsById<long long, Estudiante>("../data/estudiantes.dat", id)) {
+    if (existsById<long long, Estudiante>("data/estudiantes.dat", id)) {
         e = buscarEstudiante(id);
     } else {
         return false;
     }
 
-    return updateBinaryFile("../data/estudiantes.dat", e, recarga);
+    return updateBinaryFile("data/estudiantes.dat", e, recarga);
 }
 
 /**
@@ -130,13 +130,13 @@ bool eliminarEstudiante(long long id) {
     Estudiante e;
 
     
-    if (existsById<long long, Estudiante>("../data/estudiantes.dat", id)) {
+    if (existsById<long long, Estudiante>("data/estudiantes.dat", id)) {
         e = buscarEstudiante(id);
     } else {
         return false;
     }
 
-    return deleteOnBinaryFile("../data/estudiantes.dat", e);
+    return deleteOnBinaryFile("data/estudiantes.dat", e);
 }
 /**
  * @brief Muestra la información de un estudiante por consola.
@@ -150,7 +150,7 @@ bool eliminarEstudiante(long long id) {
 void consultarEstudiante(long long id){ 
     Estudiante e;
 
-    if (existsById<long long, Estudiante>("../data/estudiantes.dat", id)) {
+    if (existsById<long long, Estudiante>("data/estudiantes.dat", id)) {
     e = buscarEstudiante(id);
 
        cout << "\n==============================================\n";
