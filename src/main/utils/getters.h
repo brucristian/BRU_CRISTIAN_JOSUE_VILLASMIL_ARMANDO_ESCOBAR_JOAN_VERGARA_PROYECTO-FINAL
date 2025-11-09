@@ -3,6 +3,8 @@
 
 #include <iostream>
 #include <string>
+#include <thread>
+#include <chrono>
 using namespace std;
 
 string getString(string text) {
@@ -27,6 +29,14 @@ double getDouble(string text) {
 	cin.ignore();
 	
 	return n;
+}
+
+void imprimirConFormato(const string &message) {
+	for(char letter : message) {
+		cout << letter << flush;
+		this_thread::sleep_for(chrono::milliseconds(50));
+	}
+	cout << endl;
 }
 
 
