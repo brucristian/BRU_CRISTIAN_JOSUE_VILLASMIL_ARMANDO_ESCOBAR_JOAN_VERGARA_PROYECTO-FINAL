@@ -112,7 +112,7 @@ bool recargaEstudiante(long long id, double recarga) {
         return false;
     }
 
-    return updateBinaryFile("data/estudiantes.dat", e, recarga);
+    return updateBinaryFile("data/estudiantes.dat", e, e.monto + recarga);
 }
 
 /**
