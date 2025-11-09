@@ -31,11 +31,7 @@ using namespace std;
  * @return Estudiante Estructura con los datos del estudiante encontrado.
  */
 Estudiante buscarEstudiante(long long id) {
-<<<<<<< HEAD
     vector<Estudiante> estudiantes = readBinaryFile<Estudiante>("data/estudiantes.dat");
-=======
-    vector<Estudiante> estudiantes = readBinaryFile<Estudiante>("/data/estudiantes.dat");
->>>>>>> c4d30b4 (agregue la funcion restar saldo)
     Estudiante e;
 
     for (Estudiante &p : estudiantes) {
@@ -48,8 +44,7 @@ Estudiante buscarEstudiante(long long id) {
     return e;
 }
 
-<<<<<<< HEAD
-=======
+
 
 bool restarSaldo(long long id, double valorDeCompra) {
     Estudiante e = buscarEstudiante(id);
@@ -61,8 +56,6 @@ bool restarSaldo(long long id, double valorDeCompra) {
 }
 
 
-
->>>>>>> c4d30b4 (agregue la funcion restar saldo)
 /**
  * @brief Registra un nuevo estudiante en el archivo binario.
  * 
