@@ -7,16 +7,24 @@
 #include <chrono>
 using namespace std;
 
+void imprimirConFormato(const string &message) {
+	for(char letter : message) {
+		cout << letter << flush;
+		this_thread::sleep_for(chrono::milliseconds(50));
+	}
+	cout << endl;
+}
+
 string getString(string text) {
 	string texto;
-	cout << text << ": "; getline(cin, texto);
+	imprimirConFormato(text + ": "); getline(cin, texto);
 	return texto;
 }
 
 int getInt(string text) {
 	
 	int n;
-	cout << text << ": "; cin >> n;
+	imprimirConFormato(text + ": "); cin >> n;
 	cin.ignore();
 	
 	return n;
@@ -25,18 +33,10 @@ int getInt(string text) {
 double getDouble(string text) {
 	
 	double n;
-	cout << text << ": "; cin >> n;
+	imprimirConFormato(text + ": "); cin >> n;
 	cin.ignore();
 	
 	return n;
-}
-
-void imprimirConFormato(const string &message) {
-	for(char letter : message) {
-		cout << letter << flush;
-		this_thread::sleep_for(chrono::milliseconds(50));
-	}
-	cout << endl;
 }
 
 
