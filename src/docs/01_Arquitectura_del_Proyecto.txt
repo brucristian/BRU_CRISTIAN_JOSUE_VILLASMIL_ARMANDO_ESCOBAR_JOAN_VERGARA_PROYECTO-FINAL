@@ -1,0 +1,62 @@
+Modelo de arquitectura utilizado: MVC
+
+El sistema implementa el patrón de arquitectura Modelo–Vista–Controlador (MVC), ampliamente utilizado en el desarrollo de software para separar la lógica de negocio, la presentación y el control de flujo.
+Esta separación permite mantener un código más modular, escalable y fácil de mantener.
+
+Modelo (Model):
+Contiene las estructuras de datos principales del sistema y representa los objetos del dominio.
+En este proyecto, los modelos se encuentran en la carpeta model/ e incluyen las estructuras:
+
+	- Estudiante.h
+
+	- Producto.h
+
+	- Compra.h
+
+Cada estructura define los atributos y métodos asociados a las entidades del sistema, manejando la lógica interna de los datos.
+
+Vista (View):
+Se ubica en la carpeta views/, y contiene los elementos encargados de la interacción con el usuario a nivel de consola.
+Por ejemplo, el archivo menus.h agrupa los menús y opciones disponibles para navegar dentro del sistema.
+
+Controlador (Controller):
+Gestiona la comunicación entre el modelo y la vista.
+Cada controlador se encuentra en la carpeta controller/ y se encarga de ejecutar las operaciones solicitadas por el usuario, modificando o consultando los datos según sea necesario.
+Los principales controladores son:
+
+	- estudianteController.h
+
+	- productoController.h
+
+	- comprasController.h
+
+Utilidades (Utils):
+En la carpeta utils/ se encuentran funciones auxiliares y de validación, tales como:
+
+	- getters.h
+
+	- validaciones.h
+
+	- filemanager.h
+
+Estas funciones son independientes del flujo principal, pero apoyan en la correcta captura y validación de datos.
+
+Datos (Data):
+La carpeta data/ almacena los archivos binarios y de texto que contienen la información persistente del sistema, tales como:
+
+	- estudiantes.dat
+
+	- productos.dat
+
+	- compras.dat
+
+	- retiros.txt
+
+Estos archivos representan la base de datos del sistema, permitiendo conservar los registros incluso después de cerrar el programa.
+
+Principal (Main):
+El archivo Main.cpp, ubicado en main/, contiene el punto de entrada del programa.
+Desde aquí se inicializan los menús principales y se gestiona la ejecución general del sistema.
+
+Documentación (Docs):
+La carpeta docs/ almacena los archivos de documentación técnica y manuales de desarrollo asociados al proyecto.
