@@ -21,7 +21,7 @@ using namespace std;
  * @return true Si la operación fue exitosa.
  * @return false Si no se pudo abrir el archivo.
  */
-
+ 
 template <typename T>
 bool writeBinaryFile(const string &fileName, const T &dato) {
 	ofstream file(fileName, ios::binary | ios::app);

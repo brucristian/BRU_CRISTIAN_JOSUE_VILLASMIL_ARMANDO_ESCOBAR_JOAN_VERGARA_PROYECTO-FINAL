@@ -37,7 +37,7 @@ double getDouble(string text) {
 	cin.ignore();
 	
 	return n;
-}
+} 
 
 
 #endif
