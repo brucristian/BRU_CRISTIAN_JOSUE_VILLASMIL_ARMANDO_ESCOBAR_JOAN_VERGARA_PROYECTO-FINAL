@@ -50,10 +50,10 @@ Estudiante buscarEstudiante(long long id) {
 bool restarSaldo(long long id, double valorDeCompra) {
     Estudiante e = buscarEstudiante(id);
 
-    double nuevoSaldo = e.moto - valorDeCompra;
+    double nuevoSaldo = e.monto - valorDeCompra;
 
 
-    return updateBinaryFile<Estudiante, double>("data/estudiantes.dat", e, nuevoSaldo);;
+    return updateBinaryFile<Estudiante, double>("data/estudiantes.dat", e, nuevoSaldo);
 }
 
 /**
