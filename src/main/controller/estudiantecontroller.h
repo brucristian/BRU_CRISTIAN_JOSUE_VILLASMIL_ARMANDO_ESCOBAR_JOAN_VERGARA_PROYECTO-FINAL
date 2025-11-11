@@ -81,6 +81,10 @@ bool registroEstudiante(long long &id, char name[50], int &grado, double &saldo)
                 return false;  
         }
     }
+    
+    if(saldo<5000) return false;
+    
+    if(grado<=0) return false; 
 
     Estudiante e;
     e.grado = grado;
