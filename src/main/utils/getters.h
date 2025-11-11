@@ -30,6 +30,20 @@ int getInt(string text) {
 	return n;
 }
 
+long long getNumberLong(string text) {
+	
+	long long n;
+	imprimirConFormato(text + ": "); cin >> n;
+	cin.ignore();
+	
+	return n;
+}
+
+void getChar(const string &text, char *buffer, int size) {
+    cout << text << ": ";
+    cin.getline(buffer, size);
+}
+
 double getDouble(string text) {
 	
 	double n;
