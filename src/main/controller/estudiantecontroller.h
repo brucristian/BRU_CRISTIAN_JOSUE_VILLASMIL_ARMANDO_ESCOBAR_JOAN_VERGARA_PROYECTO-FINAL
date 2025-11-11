@@ -4,7 +4,7 @@
  * 
  * Este archivo contiene las funciones encargadas de manejar el registro,
  * búsqueda, recarga, eliminación y consulta de estudiantes dentro del
- * archivo binario "estudiantes.dat".
+ * archivo binario `estudiantes.dat`.
  */
 
 #ifndef ESTUDIANTECONTROLLER_H
@@ -19,30 +19,30 @@
 #include "../utils/filemanager.h"
 #include "../utils/validaciones.h"
 #include "../utils/getters.h"
+
 using namespace std;
 
 
 /**
  * @brief Busca un estudiante en el archivo binario por su ID.
- * 
  * Esta función recorre el archivo "estudiantes.dat" y retorna el
  * registro del estudiante cuyo ID coincida con el proporcionado.
  * 
  * @param id Identificación del estudiante a buscar.
  * @return Estudiante Estructura con los datos del estudiante encontrado.
  */
+ 
 Estudiante buscarEstudiante(long long id) {
     vector<Estudiante> estudiantes = readBinaryFile<Estudiante>("/data/estudiantes.dat");
 
     Estudiante e;
-
+    
     for (Estudiante &p : estudiantes) {
         if (p.id == id) {
             e = p;
             break;
         }
     }
-
     return e;
 }
 
@@ -81,10 +81,10 @@ bool registroEstudiante(long long &id, char name[50], int &grado, double &saldo)
                 return false;  
         }
     }
-
     
-    if (saldo < 5000)
-        return false;
+    if(saldo<5000) return false;
+    
+    if(grado<=0) return false; 
 
     Estudiante e;
     e.grado = grado;
@@ -147,8 +147,8 @@ bool eliminarEstudiante(long long id) {
     } else {
         return false;
     }
-
-    return deleteOnBinaryFile("data/estudiantes.dat", e);
+    
+	return deleteOnBinaryFile("data/estudiantes.dat", e);
 }
 /**
  * @brief Muestra la información de un estudiante por consola.
