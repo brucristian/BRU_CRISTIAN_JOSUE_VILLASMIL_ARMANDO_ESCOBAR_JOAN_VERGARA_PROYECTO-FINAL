@@ -18,7 +18,7 @@
 #include "../model/estudiante.h"
 #include "../utils/filemanager.h"
 #include "../utils/validaciones.h"
-
+#include "../utils/getters.h"
 using namespace std;
 
 
@@ -159,29 +159,70 @@ bool eliminarEstudiante(long long id) {
  * @param id Identificación del estudiante a consultar.
  */
 
-void consultarEstudiante(long long id){ 
+void consultarEstudiante(long long id) {
     Estudiante e;
 
     if (existsById<long long, Estudiante>("data/estudiantes.dat", id)) {
-    e = buscarEstudiante(id);
+        e = buscarEstudiante(id);
 
-       cout << "\n==============================================\n";
-       cout << "           DATOS DEL ESTUDIANTE              \n";
-       cout << "==============================================\n";
-       cout << "| Cedula       | Nombre            | Grado | Saldo  |\n";
-       cout << "----------------------------------------------\n";
-       cout << "| " << e.id 
-            << " | " << setw(16) << left << e.name 
-            << " | " << setw(5) << left << e.grado 
-            << " | " << setw(6) << right << e.monto 
-            << " |\n";
+        cout << "\n==============================================\n";
+        imprimirConFormato("DATOS DEL ESTUDIANTE");
+        cout << "==============================================\n";
+        cout << "| Cedula       | Nombre            | Grado | Saldo  |\n";
+        cout << "----------------------------------------------\n";
+        cout << "| " << e.id 
+             << " | " << setw(16) << left << e.name 
+             << " | " << setw(5) << left << e.grado 
+             << " | " << setw(6) << right << e.monto 
+             << " |\n";
         cout << "==============================================\n";
     } else {
-      cout << "\n==============================================" << endl;
-      cout << "ERROR: No hay registros con la cedula [" << id << "]" << endl;
-      cout << "==============================================" << endl;
+        cout << "\n==============================================\n";
+        imprimirConFormato("ERROR: No hay registros con la cedula");
+        cout << "[" << id << "]\n";
+        cout << "==============================================\n";
+    }
+}
+/**
+ * @brief Muestra los estudiantes con saldo menor a 5000.
+ * 
+ * Esta función lee todos los registros de estudiantes almacenados 
+ * en el archivo binario "/data/estudiantes.dat" y muestra en formato
+ * tabular aquellos cuya cantidad de dinero (`monto`) es inferior a 5000.
+ * 
+ * Si no se encuentra ningún estudiante con saldo menor al valor indicado,
+ * se muestra un mensaje de error.
+ * 
+ * @note Utiliza la función auxiliar imprimirConFormato() para mostrar
+ * los títulos con un formato uniforme en consola.
+ */
+
+void buscarSaldoMenor() {
+    vector<Estudiante> estudiantes = readBinaryFile<Estudiante>("/data/estudiantes.dat");
+    bool encontrado = false;
+
+    cout << "\n==============================================\n";
+    imprimirConFormato("ESTUDIANTES CON SALDO < 5000");
+    cout << "==============================================\n";
+    cout << "| Cedula       | Nombre            | Grado | Saldo  |\n";
+    cout << "----------------------------------------------\n";
+
+    for (Estudiante &e : estudiantes) {
+        if (e.monto < 5000) {
+            cout << "| " << e.id 
+                 << " | " << setw(16) << left << e.name 
+                 << " | " << setw(5) << left << e.grado 
+                 << " | " << setw(6) << right << e.monto 
+                 << " |\n";
+            encontrado = true;
+        }
     }
 
-}       
+    if (!encontrado) {
+        cout << "\n==============================================\n";
+        imprimirConFormato("ERROR: No hay registros menores a 5000");
+        cout << "==============================================\n";
+    }
+}
 
 #endif
