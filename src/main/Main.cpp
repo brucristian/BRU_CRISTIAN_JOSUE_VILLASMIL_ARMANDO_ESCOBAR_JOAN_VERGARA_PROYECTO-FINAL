@@ -1,0 +1,44 @@
+// Codigos: 6902510029, 6902510017, 6902510023, 6902510055
+
+#include <iostream>
+#include "utils/getters.h"
+#include "model/estudiante.h"
+#include "controller/estudiantecontroller.h"
+#include "vews/menus.h"
+
+using namespace std;
+
+
+
+int main() {		
+	int option;
+	do {
+		option = menuPricipal();
+		
+		switch (option) {
+			case 1:
+				registrarEstudent();
+				break;
+			case 2:
+				break;
+			case 3:
+				break;
+			case 4:
+				break;
+			case 5:
+				break;
+			case 6:
+				break;
+			case 7:
+				imprimirConFormato("Saliendo...");
+				break;
+			default:
+				imprimirConFormato("\nOpcion no valida. Intente nuevamente");
+				break;
+				
+		}
+		cout << endl;
+		system("pause");
+		
+	} while(option != 7);
+}

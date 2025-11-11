@@ -1,6 +1,7 @@
 #ifndef FILEMANAGER_H
 #define FILEMANAGER_H
 
+#include <iostream>
 #include <cstring>
 #include <fstream>
 #include <vector>
@@ -20,12 +21,14 @@ using namespace std;
  * @return true Si la operación fue exitosa.
  * @return false Si no se pudo abrir el archivo.
  */
-
+ 
 template <typename T>
 bool writeBinaryFile(const string &fileName, const T &dato) {
 	ofstream file(fileName, ios::binary | ios::app);
-	
-	if(!file.is_open()) { return false; }
+	if(!file.is_open()) {
+		cout << fileName << endl;
+		return false;
+	}
 	
 	file.write(reinterpret_cast<const char*>(&dato), sizeof(dato));
 	file.close();

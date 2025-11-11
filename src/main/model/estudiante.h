@@ -8,7 +8,7 @@ struct Estudiante{
 	long long id;
 	char name[50];
 	int grado;
-	double saldo;
+	double monto;
 };
 
 

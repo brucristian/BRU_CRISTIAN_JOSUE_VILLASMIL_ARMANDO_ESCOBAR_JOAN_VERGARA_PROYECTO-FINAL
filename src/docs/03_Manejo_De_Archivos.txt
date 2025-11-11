@@ -1,0 +1,101 @@
+===============================================
+04 - MANEJO DE ARCHIVOS
+===============================================
+
+📘 Descripción General
+----------------------
+El sistema implementa un mecanismo de almacenamiento persistente basado en **archivos binarios (.dat)** y archivos de texto (.txt).  
+Esto permite conservar los registros incluso después de cerrar el programa, garantizando la integridad de la información de estudiantes, productos y compras.
+
+El manejo de archivos se realiza de forma centralizada mediante funciones auxiliares ubicadas en el módulo `utils/filemanager.h`, utilizando **plantillas (templates)** para trabajar con diferentes estructuras de datos (`structs`).
+
+---
+
+📂 Tipos de Archivos Utilizados
+-------------------------------
+
+1. **Archivos Binarios (.dat)**
+   - **Ubicación:** `src/main/data/`  
+   - **Uso:** Almacenamiento estructurado y eficiente de los datos de tipo `Estudiante`, `Producto` y `Compra`.  
+   - **Ventajas:**  
+     - Mayor velocidad de lectura/escritura.  
+     - Protección frente a edición manual o accidental.  
+     - Reducción del tamaño del archivo.  
+   - **Archivos binarios manejados:**  
+     - `estudiantes.dat`  
+     - `productos.dat`  
+     - `compras.dat`  
+
+2. **Archivos de Texto (.txt)**
+   - **Ubicación:** `src/main/data/`  
+   - **Uso:** Registro legible de los estudiantes eliminados.  
+   - **Archivo manejado:**  
+     - `retiros.txt`  
+   - **Ventajas:**  
+     - Permite generar reportes visibles y entendibles para el usuario o el administrador del sistema.  
+
+---
+
+⚙️ Operaciones Principales con Archivos
+----------------------------------------
+
+El sistema puede realizar las siguientes operaciones sobre los archivos binarios:
+
+1. **Creación / Escritura de registros**
+   - Se utiliza `ofstream` en modo binario y append (`ios::app`) para agregar registros.  
+   - Si el archivo no existe, se crea automáticamente.  
+   - **Función:** `writeBinaryFile`  
+   - **Ejemplo:**  
+     ```cpp
+     Estudiante e = {...};
+     writeBinaryFile("data/estudiantes.dat", e);
+     ```  
+   - **Nota:** Funciona con cualquier struct serializable en binario.
+
+2. **Lectura de registros**
+   - Se utiliza `ifstream` en modo binario para leer todos los registros y devolverlos en un `vector`.  
+   - **Función:** `readBinaryFile`  
+   - **Ejemplo:**  
+     ```cpp
+     vector<Estudiante> estudiantes = readBinaryFile<Estudiante>("data/estudiantes.dat");
+     ```  
+   - **Nota:** Retorna un vector vacío si el archivo no existe o está vacío.
+
+3. **Actualización de registros**
+   - Para modificar un registro, se lee todo el archivo, se actualiza el registro correspondiente y se reescribe todo el archivo.  
+   - **Función:** `updateBinaryFile`  
+   - **Ejemplo:**  
+     ```cpp
+     updateBinaryFile("data/productos.dat", productoViejo, nuevoMonto);
+     ```  
+   - **Requisito:** El struct debe tener atributos `id` y `monto`.
+
+4. **Eliminación de registros**
+   - Se omite el registro a eliminar y se reescribe el archivo con el resto de los datos.  
+   - **Función:** `deleteOnBinaryFile`  
+   - **Ejemplo:**  
+     ```cpp
+     deleteOnBinaryFile("data/estudiantes.dat", estudianteAEliminar);
+     ```  
+   - **Requisito:** El struct debe tener un atributo `id`.
+
+---
+
+🧩 Funciones Auxiliares (`utils/filemanager.h`)
+---------------------------------------------
+El módulo `filemanager.h` implementa funciones genéricas basadas en *templates* que permiten manejar archivos binarios de cualquier tipo de struct.  
+
+**Principales funciones implementadas:**  
+
+```cpp
+template <typename T>
+bool writeBinaryFile(const string &fileName, const T &dato);
+
+template <typename T>
+vector<T> readBinaryFile(const string &fileName);
+
+template <typename T>
+bool deleteOnBinaryFile(const string &fileName, const T &dato);
+
+template <typename Type1, typename Type2>
+bool updateBinaryFile(const string &fileName, const Type1 &object, const Type2 &change);

@@ -3,31 +3,55 @@
 
 #include <iostream>
 #include <string>
+#include <thread>
+#include <chrono>
 using namespace std;
+
+void imprimirConFormato(const string &message) {
+	for(char letter : message) {
+		cout << letter << flush;
+		this_thread::sleep_for(chrono::milliseconds(50));
+	}
+	cout << endl;
+}
 
 string getString(string text) {
 	string texto;
-	cout << text << ": "; getline(cin, texto);
+	imprimirConFormato(text + ": "); getline(cin, texto);
 	return texto;
 }
 
 int getInt(string text) {
 	
 	int n;
-	cout << text << ": "; cin >> n;
+	imprimirConFormato(text + ": "); cin >> n;
 	cin.ignore();
 	
 	return n;
 }
 
-double getDouble(string text) {
+long long getNumberLong(string text) {
 	
-	double n;
-	cout << text << ": "; cin >> n;
+	long long n;
+	imprimirConFormato(text + ": "); cin >> n;
 	cin.ignore();
 	
 	return n;
 }
+
+void getChar(const string &text, char *buffer, int size) {
+    cout << text << ": ";
+    cin.getline(buffer, size);
+}
+
+double getDouble(string text) {
+	
+	double n;
+	imprimirConFormato(text + ": "); cin >> n;
+	cin.ignore();
+	
+	return n;
+} 
 
 
 #endif

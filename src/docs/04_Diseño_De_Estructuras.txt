@@ -1,0 +1,86 @@
+===============================================
+05 - DISEÑO DE ESTRUCTURAS
+===============================================
+
+📘 Descripción General
+----------------------
+El sistema está diseñado siguiendo una estructura basada en **estructuras (structs)** en C++, manteniendo relaciones similares a un modelo de base de datos relacional.  
+Las entidades principales del proyecto son `Estudiante`, `Producto` y `Compra`, y cada una contiene los atributos necesarios para su correcta gestión dentro del sistema.
+
+El diseño busca **facilitar la persistencia en archivos binarios**, la manipulación de datos en memoria y la implementación de operaciones CRUD (Crear, Leer, Actualizar, Eliminar).
+
+---
+
+📂 Entidades y Estructuras
+--------------------------
+
+1. **Estudiante**
+   - **Descripción:** Representa a un estudiante registrado en el sistema.  
+   - **Estructura (struct):**
+     ```cpp
+     struct Estudiante {
+         int id;               // Identificador único que hace referencia a la cedula
+         char name[50];        // Nombre completo del estudiante
+	 int grado;	       // El grado que cursa el estudiante
+	 double monto;	       // Hace referencia al saldo del estudiante
+     };
+     ```
+   - **Relaciones:**  
+     - Un estudiante puede realizar **varias compras**.  
+     - Se relaciona con la estructura `Compra` mediante `idEstudiante`.
+
+2. **Producto**
+   - **Descripción:** Representa un producto disponible para compra.  
+   - **Estructura (struct):**
+     ```cpp
+     struct Producto {
+         int id;               // Identificador único que hace referencia al código del producto 
+         string nombre;        // Nombre del producto
+         double precio;        // Precio unitario
+         int monto;            // Cantidad disponible en inventario (Hace referencia al stock)
+     };
+     ```
+   - **Relaciones:**  
+     - Un producto puede estar presente en **varias compras**.  
+     - Se relaciona con la estructura `Compra` mediante `idProducto`.
+
+3. **Compra**
+   - **Descripción:** Representa la compra de uno o varios productos por un estudiante.  
+   - **Estructura (struct):**
+     ```cpp
+     struct Compra {
+         int id;               // Identificador único de la compra
+         int idEstudiante;     // Referencia al estudiante que realiza la compra
+         int idProducto;       // Referencia al producto comprado
+         string fecha;         // Fecha de la compra (DD/MM/AAAA)
+     };
+     ```
+   - **Relaciones:**  
+     - Cada compra está asociada a un **estudiante** (`idEstudiante`).  
+     - Cada compra incluye un **producto** (`idProducto`).  
+     - Permite rastrear historial de compras y calcular montos totales.
+
+---
+
+🧩 Relaciones entre Estructuras
+-------------------------------
+| Entidad Principal | Entidad Relacionada | Tipo de Relación | Comentario |
+|------------------|------------------|----------------|-----------|
+| Estudiante       | Compra           | 1 a N          | Un estudiante puede realizar muchas compras. |
+| Producto         | Compra           | 1 a N          | Un producto puede estar en muchas compras. |
+| Compra           | Estudiante       | N a 1          | Cada compra pertenece a un estudiante. |
+| Compra           | Producto         | N a 1          | Cada compra está asociada a un producto. |
+
+---
+
+⚙️ Consideraciones de Diseño
+----------------------------
+- Todas las estructuras incluyen un **atributo `id` único** para facilitar operaciones CRUD y la relación entre entidades.  
+- Los campos `string` permiten almacenar información textual directamente, compatible con archivos binarios.  
+- La relación entre `Estudiante`, `Producto` y `Compra` se implementa mediante **referencias por ID**, simulando relaciones de clave primaria/foránea de bases de datos.  
+- Este diseño permite:
+  - Generar reportes de compras por estudiante o por producto.  
+  - Calcular el total de ventas.  
+  - Mantener integridad de datos en archivos binarios.  
+
+---
