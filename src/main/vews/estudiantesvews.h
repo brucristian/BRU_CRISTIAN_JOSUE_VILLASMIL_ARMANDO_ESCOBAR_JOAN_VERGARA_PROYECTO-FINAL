@@ -23,7 +23,7 @@ using namespace std;
 			
 			validation = registroEstudiante(id, fullName, section, initial);
 			
-		}while(!validation);	
+		}while(!validation);
 		cout << "\nRegistro exitoso :)";
 	}
 	

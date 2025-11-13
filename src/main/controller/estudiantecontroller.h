@@ -73,6 +73,7 @@ bool restarSaldo(long long id, double valorDeCompra) {
  */
 
 bool registroEstudiante(long long &id, char name[50], int &grado, double &saldo) {
+	
     vector<Estudiante> estudiantes = readBinaryFile<Estudiante>("data/estudiantes.dat");
 
     if (!estudiantes.empty()) {
