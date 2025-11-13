@@ -11,14 +11,14 @@ using namespace std;
 /**
  * @brief Escribe un registro en un archivo binario.
  * 
- * Esta función abre un archivo binario en modo append y escribe
+ * Esta funciï¿½n abre un archivo binario en modo append y escribe
  * el dato proporcionado al final del archivo. Si el archivo no
- * existe, se crea automáticamente.
+ * existe, se crea automï¿½ticamente.
  *
  * @tparam T Tipo de dato a escribir ( struct ).
  * @param fileName Nombre del archivo binario.
  * @param dato Registro a escribir en el archivo.
- * @return true Si la operación fue exitosa.
+ * @return true Si la operaciï¿½n fue exitosa.
  * @return false Si no se pudo abrir el archivo.
  */
  
@@ -68,9 +68,9 @@ vector<T> readBinaryFile(const string &fileName) {
 
 
 /**
- * @brief Elimina un registro específico de un archivo binario.
+ * @brief Elimina un registro especï¿½fico de un archivo binario.
  *
- * Esta función plantilla permite eliminar un elemento de tipo T almacenado en un
+ * Esta funciï¿½n plantilla permite eliminar un elemento de tipo T almacenado en un
  * archivo binario. Para lograrlo, primero lee todos los registros existentes en
  * un vector temporal, luego reescribe el archivo desde cero,
  * omitiendo aquel registro cuyo atributo `id` coincida con el del registro
@@ -78,13 +78,13 @@ vector<T> readBinaryFile(const string &fileName) {
  *
  * @tparam T Tipo de dato del registro. ( struct )
  *          que pueda escribirse y leerse en binario, y debe contener
- *          obligatoriamente un atributo público llamado `id`.
+ *          obligatoriamente un atributo pï¿½blico llamado `id`.
  *
- * @param fileName Nombre del archivo binario en el cual se realizará la operación.
+ * @param fileName Nombre del archivo binario en el cual se realizarï¿½ la operaciï¿½n.
  * @param dato Registro que contiene el `id` del elemento que se busca eliminar.
  *
- * @return true Si el archivo se abrió correctamente y la operación se ejecutó.
- * @return false Si el archivo no pudo abrirse o si ocurrió un error.
+ * @return true Si el archivo se abriï¿½ correctamente y la operaciï¿½n se ejecutï¿½.
+ * @return false Si el archivo no pudo abrirse o si ocurriï¿½ un error.
  */
 
 

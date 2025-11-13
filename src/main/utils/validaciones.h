@@ -7,7 +7,7 @@
 #include "filemanager.h"
 
 
-// Funcion para año bisiesto
+// Funcion para aï¿½o bisiesto
 bool bisiesto(int year) {
 	return ((year % 4 == 0 && year % 100 != 0) || year % 400 == 0);
 }
@@ -15,11 +15,11 @@ bool bisiesto(int year) {
 /**
  * @brief Valida si una fecha en formato DD-MM-YY es correcta.
  * 
- * Verifica que el día, mes y año sean válidos según el calendario, 
- * incluyendo el manejo de años bisiestos.
+ * Verifica que el dï¿½a, mes y aï¿½o sean vï¿½lidos segï¿½n el calendario, 
+ * incluyendo el manejo de aï¿½os bisiestos.
  * 
  * @param data Fecha a validar (formato "DD-MM-YY").
- * @return true Si la fecha es válida.
+ * @return true Si la fecha es vï¿½lida.
  * @return false Si la fecha no cumple con los valores permitidos.
  */
 
@@ -62,7 +62,7 @@ bool dateValidation(const string &data) {
  * con el ID especificado.
  * 
  * @tparam idType Tipo del ID a buscar.
- * @tparam T Tipo del registro (debe tener un campo público `id`).
+ * @tparam T Tipo del registro (debe tener un campo pï¿½blico `id`).
  * @param fileName Nombre del archivo binario.
  * @param id ID que se desea verificar.
  * @return true Si el ID existe, false en caso contrario.
