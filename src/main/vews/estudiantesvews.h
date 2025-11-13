@@ -8,7 +8,7 @@ using namespace std;
 
 //	estudiantes...
 
-	void registrarEstudent() {
+	void registrarStudent() {
 		system ("cls");
 		bool validation = false;
 		char fullName [50];
@@ -41,6 +41,20 @@ using namespace std;
 		}while (!validation);
 		
 		cout << "\nSu dinero ha sido recargado con exito!";
+	}
+	
+	void eliminarStudent () {
+		system("cls");
+		bool validation = false;
+		do {
+			
+			cout << "========== Eliminar Estudiante ==========";
+			long long id = getNumberLong ("\nDigite la cedula");
+			validation = eliminarEstudiante (id);
+			
+		}while (!validation);
+		
+		cout << "\nEstudiante eliminado con exito!";
 	}	
 
 #endif
