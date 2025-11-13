@@ -1,5 +1,5 @@
-#ifndef MENUS_H
-#define MENUS_H
+#ifndef PRODUCTOSVEWS_H
+#define PRODUCTOSVEWS_H
 #include "../utils/getters.h"
 #include "../controller/productocontroller.h"
 #include <iostream>
@@ -14,10 +14,10 @@ using namespace std;
 		do {			
 			cout << "========== Registrar Estudiante ==========";	
 			
-			long long id = getNumberLong ("Digite el codigo del producto"); 
-			getChar ("Ingrese el nombre del producto", fullName, 50);
-			double value = getDouble ("Digite el valor del producto");	
-			int disponible = getInt ("Ingrese la cantidad stock del producto");
+			long long id = getNumberLong ("\nDigite el codigo del producto"); 
+			getChar ("\nIngrese el nombre del producto", fullName, 50);
+			double value = getDouble ("\nDigite el valor del producto");	
+			int disponible = getInt ("\nIngrese la cantidad stock del producto");
 			
 			validation = agregarProducto(id, fullName, value, disponible);
 			

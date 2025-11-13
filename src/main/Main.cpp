@@ -2,15 +2,17 @@
 
 #include <iostream>
 #include "utils/getters.h"
-#include "model/estudiante.h"
-#include "controller/estudiantecontroller.h"
 #include "vews/menus.h"
+#include "vews/productosvews.h"
+#include "vews/comprasvews.h"
+#include "vews/estudiantesvews.h"
 
 using namespace std;
 
 
 
 int main() {		
+	
 	int option;
 	do {
 		option = menuPricipal();
@@ -20,10 +22,13 @@ int main() {
 				registrarEstudent();
 				break;
 			case 2:
+				registrarProducto();
 				break;
 			case 3:
+				buy();
 				break;
 			case 4:
+				RecargarBalance();
 				break;
 			case 5:
 				break;

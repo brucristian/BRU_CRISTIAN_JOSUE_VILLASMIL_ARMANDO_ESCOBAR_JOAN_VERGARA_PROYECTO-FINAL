@@ -33,7 +33,7 @@ using namespace std;
  */
  
 Estudiante buscarEstudiante(long long id) {
-    vector<Estudiante> estudiantes = readBinaryFile<Estudiante>("/data/estudiantes.dat");
+    vector<Estudiante> estudiantes = readBinaryFile<Estudiante>("data/estudiantes.dat");
 
     Estudiante e;
     
@@ -93,7 +93,7 @@ bool registroEstudiante(long long &id, char name[50], int &grado, double &saldo)
     strcpy(e.name, name);
     e.monto = saldo;
 
-    return writeBinaryFile("data/estudiantes.dat", e);
+    return writeBinaryFile<Estudiante>("data/estudiantes.dat", e);
 }
 
 /**
@@ -199,7 +199,7 @@ void consultarEstudiante(long long id) {
  */
 
 void buscarSaldoMenor() {
-    vector<Estudiante> estudiantes = readBinaryFile<Estudiante>("/data/estudiantes.dat");
+    vector<Estudiante> estudiantes = readBinaryFile<Estudiante>("data/estudiantes.dat");
     bool encontrado = false;
 
     cout << "\n==============================================\n";
