@@ -19,7 +19,7 @@ int main() {
 		
 		switch (option) {
 			case 1:
-				registrarEstudent();
+				registrarStudent();
 				break;
 			case 2:
 				registrarProducto();
@@ -31,8 +31,10 @@ int main() {
 				RecargarBalance();
 				break;
 			case 5:
+				eliminarStudent();
 				break;
 			case 6:
+				cout << "\nAun esta pendiente...";
 				break;
 			case 7:
 				imprimirConFormato("Saliendo...");

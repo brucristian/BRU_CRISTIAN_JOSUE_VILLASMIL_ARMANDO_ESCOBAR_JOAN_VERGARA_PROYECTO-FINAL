@@ -14,14 +14,21 @@ bool agregarProducto(long long &id, char name[50], double &precio, int &monto){
     for(int i=0;i<copia_momentanea.size();i++){
 
         if(id==copia_momentanea[i].id){
-
+			cout << "\nEl codigo " << id << " ya se encuentra ocupado.\n";
             return false;
         }
 
     }
 
-    if(precio<0){return false;}
-    if(monto<0){return false;}
+    if(precio<0){
+    	cout << "\nNo puede ingresar un precio negativo\n";
+		return false;
+	}
+	
+    if(monto<0){
+    	cout << "\nNo puede ingresar una cantidad negativa\n";
+		return false;
+	}
 
     Producto informacion_a_pasar;
 

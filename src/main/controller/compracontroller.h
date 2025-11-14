@@ -44,7 +44,7 @@ using namespace std;
     	
     	for(int i=0;i<copia_momentary.size();i++){
     		
-	    	if (id == copia_momentary[i].id) {
+	    	if (codigo == copia_momentary[i].id) {
 	    		
 		    	if(copia_momentary[i].monto<=0){
 		    		cout << "\nLo sentimos, no tenemos este producto disponible en estos momentos"; 
@@ -59,19 +59,18 @@ using namespace std;
 						restarSaldo (e.id, copia_momentary[i].precio);
 						compra.valor = copia_momentary[i].precio;
 					}
-								
+							
 					updateBinaryFile<Producto, int>("data/productos.dat", copia_momentary[i], copia_momentary[i].monto - 1);
 					strcpy(compra.name, copia_momentary[i].name); 
 				}	
 				compra.fecha = obtenerFecha();
 				compra.id = e.id;
-			
-				return writeBinaryFile <Compra> ("data/compra.dat", compra);
-    		}
-    			    
+		
+				return writeBinaryFile <Compra> ("data/compras.dat", compra);
+    		}	    
 		}
-		cout << "\nLa cedula ingresada no esta en nuestra base de datos";
-		return false; 
+		cout << "\nNo se encontro el producto con el codigo [" << codigo << "]";
+    	return false;
 	}
 	
 

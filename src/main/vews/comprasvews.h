@@ -8,11 +8,10 @@ using namespace std;
 
 	void buy () {
 		
-		system("cls");
 		bool validation = false;
 		
 		do {
-			
+			system("cls");
 			cout << "========== Compras ==========";
 			
 			long long cedula = getNumberLong ("\nIngrese su cedula");

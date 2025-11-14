@@ -78,14 +78,22 @@ bool registroEstudiante(long long &id, char name[50], int &grado, double &saldo)
 
     if (!estudiantes.empty()) {
         for (Estudiante &e : estudiantes) {
-            if (id == e.id)
-                return false;  
+            if (id == e.id) {
+            	cout << "\nLa cedula " << id << " ya se encuentra ocupada.\n";
+                return false;
+			}
         }
     }
     
-    if(saldo<5000) return false;
+    if(saldo<5000) {
+    	cout << "\nEl saldo inicial no puede ser menor a $5.000\n";
+		return false;
+	}
     
-    if(grado<=0) return false; 
+    if(grado<=0) {
+    	cout << "\nEl grado no puede ser monor o igual a 0\n";
+		return false; 
+	}
 
     Estudiante e;
     e.grado = grado;
@@ -114,7 +122,7 @@ bool recargaEstudiante(long long id, double recarga) {
  
     if (recarga > 500000 || recarga < 0) {
         cout << "\n==============================================" << endl;
-        cout << "           Monto de recarga no válido         " << endl;
+        cout << "           Monto de recarga no valido         " << endl;
         cout << "==============================================" << endl;
         return false;
     }
@@ -122,6 +130,7 @@ bool recargaEstudiante(long long id, double recarga) {
     if (existsById<long long, Estudiante>("data/estudiantes.dat", id)) {
         e = buscarEstudiante(id);
     } else {
+    	cout << "No se encontro un estudite con la cedula: " << id << endl;
         return false;
     }
 
@@ -146,6 +155,7 @@ bool eliminarEstudiante(long long id) {
     if (existsById<long long, Estudiante>("data/estudiantes.dat", id)) {
         e = buscarEstudiante(id);
     } else {
+    	cout << "No se encontro un estudite con la cedula: " << id << endl;
         return false;
     }
     
