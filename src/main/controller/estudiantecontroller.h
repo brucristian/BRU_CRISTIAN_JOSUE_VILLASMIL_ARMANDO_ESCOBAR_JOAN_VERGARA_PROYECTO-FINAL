@@ -72,7 +72,9 @@ bool restarSaldo(long long id, double valorDeCompra) {
  * @return false Si el ID ya existe, el saldo es insuficiente.
  */
 
-bool registroEstudiante(long long &id, char name[50], int &grado, double &saldo) {
+vector <int> registroEstudiante(long long &id, char name[50], int &grado, double &saldo) {
+	
+	vector <int> error; 
 	
     vector<Estudiante> estudiantes = readBinaryFile<Estudiante>("data/estudiantes.dat");
 
@@ -80,19 +82,19 @@ bool registroEstudiante(long long &id, char name[50], int &grado, double &saldo)
         for (Estudiante &e : estudiantes) {
             if (id == e.id) {
             	cout << "\nLa cedula " << id << " ya se encuentra ocupada.\n";
-                return false;
+                return error; //cambia esto
 			}
         }
     }
     
     if(saldo<5000) {
     	cout << "\nEl saldo inicial no puede ser menor a $5.000\n";
-		return false;
+		return error; //cambia esto
 	}
     
     if(grado<=0) {
     	cout << "\nEl grado no puede ser monor o igual a 0\n";
-		return false; 
+		return error;  //cambia esto
 	}
 
     Estudiante e;
@@ -101,7 +103,7 @@ bool registroEstudiante(long long &id, char name[50], int &grado, double &saldo)
     strcpy(e.name, name);
     e.monto = saldo;
 
-    return writeBinaryFile<Estudiante>("data/estudiantes.dat", e);
+   // return writeBinaryFile<Estudiante>("data/estudiantes.dat", e);
 }
 
 /**
@@ -116,7 +118,8 @@ bool registroEstudiante(long long &id, char name[50], int &grado, double &saldo)
  * @return false Si el monto es inválido o el estudiante no existe.
  */
 
-bool recargaEstudiante(long long id, double recarga) {
+vector <int> recargaEstudiante(long long id, double recarga) {
+	vector <int> error;
     Estudiante e;
 
  
@@ -124,17 +127,17 @@ bool recargaEstudiante(long long id, double recarga) {
         cout << "\n==============================================" << endl;
         cout << "           Monto de recarga no valido         " << endl;
         cout << "==============================================" << endl;
-        return false;
+        return error; //cambia esto
     }
 
     if (existsById<long long, Estudiante>("data/estudiantes.dat", id)) {
         e = buscarEstudiante(id);
     } else {
     	cout << "No se encontro un estudite con la cedula: " << id << endl;
-        return false;
+        return error; // cambia esto        EN TODOS LADOS DONDE ALLA UN "RETURN ERROR" VAS A PONER UN PUSH_BACK CON EL NUMERO DEL ERROR
     }
 
-    return updateBinaryFile("data/estudiantes.dat", e, e.monto + recarga);
+    //return updateBinaryFile("data/estudiantes.dat", e, e.monto + recarga);
 }
 
 /**

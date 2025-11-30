@@ -7,7 +7,8 @@
 #include<cstring>
 #include <iomanip>
 
-bool agregarProducto(long long &id, char name[50], double &precio, int &monto){
+vector <int> agregarProducto(long long &id, char name[50], double &precio, int &monto){
+	vector <int> error;
 
     vector<Producto> copia_momentanea = readBinaryFile <Producto>("data/productos.dat");
     
@@ -15,19 +16,19 @@ bool agregarProducto(long long &id, char name[50], double &precio, int &monto){
 
         if(id==copia_momentanea[i].id){
 			cout << "\nEl codigo " << id << " ya se encuentra ocupado.\n";
-            return false;
+            return error;
         }
 
     }
 
     if(precio<0){
     	cout << "\nNo puede ingresar un precio negativo\n";
-		return false;
+		return error;
 	}
 	
     if(monto<0){
     	cout << "\nNo puede ingresar una cantidad negativa\n";
-		return false;
+		return error; // EN CADA LINEA IGUAL A ESTA VAS A HACER UN .PUSH_BACK PARA AGREGAR EL ERROR QUE ESTE MANDANDO Y AL FINAL DEL CODIGO ES QUE ME VAS A RETORNAR EL VECTOR CON O SIN ERRORES
 	}
 
     Producto informacion_a_pasar;
@@ -37,7 +38,7 @@ bool agregarProducto(long long &id, char name[50], double &precio, int &monto){
     informacion_a_pasar.precio = precio;
     informacion_a_pasar.monto = monto;
 
-    return writeBinaryFile <Producto> ("data/productos.dat", informacion_a_pasar);
+    //return writeBinaryFile <Producto> ("data/productos.dat", informacion_a_pasar);        ESTO SE VA A MODIFICAR
     
 
 }
