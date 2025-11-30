@@ -72,29 +72,25 @@ bool restarSaldo(long long id, double valorDeCompra) {
  * @return false Si el ID ya existe, el saldo es insuficiente.
  */
 
-vector <int> registroEstudiante(long long &id, char name[50], int &grado, double &saldo) {
+vector<int> registroEstudiante(long long &id, char name[50], int &grado, double &saldo) {
 	
-	vector <int> error; 
-	
+	vector<int> error; 	
     vector<Estudiante> estudiantes = readBinaryFile<Estudiante>("data/estudiantes.dat");
 
-    if (!estudiantes.empty()) {
-        for (Estudiante &e : estudiantes) {
-            if (id == e.id) {
-            	cout << "\nLa cedula " << id << " ya se encuentra ocupada.\n";
-                return error; //cambia esto
-			}
-        }
+    bool exist = existsById<long long, Estudiante>("data/estudiantes.dat", id);
+    if (!estudiantes.empty() && exist) {
+        cout << "\nLa cedula " << id << " ya se encuentra ocupada.\n";
+        error.push_back(1);
     }
     
     if(saldo<5000) {
     	cout << "\nEl saldo inicial no puede ser menor a $5.000\n";
-		return error; //cambia esto
+		error.push_back(4);
 	}
     
     if(grado<=0) {
-    	cout << "\nEl grado no puede ser monor o igual a 0\n";
-		return error;  //cambia esto
+    	cout << "\nEl grado no puede ser menor o igual a 0\n";
+		error.push_back(3);
 	}
 
     Estudiante e;
@@ -103,7 +99,15 @@ vector <int> registroEstudiante(long long &id, char name[50], int &grado, double
     strcpy(e.name, name);
     e.monto = saldo;
 
-   // return writeBinaryFile<Estudiante>("data/estudiantes.dat", e);
+    if(!error.empty())
+        return error;
+
+    if(!writeBinaryFile<Estudiante>("data/estudiantes.dat", e)) {
+        cout << "Ocurrio un error al registrar los datos porfavor intentelo nuevamente.";
+        error.push_back(5);
+    }
+
+    return error;
 }
 
 /**
@@ -118,7 +122,7 @@ vector <int> registroEstudiante(long long &id, char name[50], int &grado, double
  * @return false Si el monto es inválido o el estudiante no existe.
  */
 
-vector <int> recargaEstudiante(long long id, double recarga) {
+vector<int> recargaEstudiante(long long id, double recarga) {
 	vector <int> error;
     Estudiante e;
 
@@ -127,17 +131,24 @@ vector <int> recargaEstudiante(long long id, double recarga) {
         cout << "\n==============================================" << endl;
         cout << "           Monto de recarga no valido         " << endl;
         cout << "==============================================" << endl;
-        return error; //cambia esto
+        error.push_back(1);
     }
 
-    if (existsById<long long, Estudiante>("data/estudiantes.dat", id)) {
-        e = buscarEstudiante(id);
-    } else {
-    	cout << "No se encontro un estudite con la cedula: " << id << endl;
-        return error; // cambia esto        EN TODOS LADOS DONDE ALLA UN "RETURN ERROR" VAS A PONER UN PUSH_BACK CON EL NUMERO DEL ERROR
+    if (!existsById<long long, Estudiante>("data/estudiantes.dat", id)) {
+        cout << "No se encontro un estudite con la cedula: " << id << endl;
+        error.push_back(2); 
     }
 
-    //return updateBinaryFile("data/estudiantes.dat", e, e.monto + recarga);
+    e = buscarEstudiante(id);
+    if(!error.empty())
+        return error;
+
+    if(!updateBinaryFile<Estudiante, double>("data/estudiantes.dat", e, recarga)) {
+        cout << "Ocurrio un error al actualizar los datos porfavor intentelo nuevamente.";
+        error.push_back(3);
+    }
+
+    return error;
 }
 
 /**
@@ -190,6 +201,7 @@ void consultarEstudiante(long long id) {
              << " | " << setw(6) << right << e.monto 
              << " |\n";
         cout << "==============================================\n";
+
     } else {
         cout << "\n==============================================\n";
         imprimirConFormato("ERROR: No hay registros con la cedula");
@@ -213,7 +225,10 @@ void consultarEstudiante(long long id) {
 
 void buscarSaldoMenor() {
     vector<Estudiante> estudiantes = readBinaryFile<Estudiante>("data/estudiantes.dat");
-    bool encontrado = false;
+
+    if(estudiantes.empty()) {
+        cout << "Aun no hay productos en el inventario."; return;
+    }
 
     cout << "\n==============================================\n";
     imprimirConFormato("ESTUDIANTES CON SALDO < 5000");
@@ -221,6 +236,7 @@ void buscarSaldoMenor() {
     cout << "| Cedula       | Nombre            | Grado | Saldo  |\n";
     cout << "----------------------------------------------\n";
 
+    bool encontrado = false;
     for (Estudiante &e : estudiantes) {
         if (e.monto < 5000) {
             cout << "| " << e.id 
@@ -234,7 +250,7 @@ void buscarSaldoMenor() {
 
     if (!encontrado) {
         cout << "\n==============================================\n";
-        imprimirConFormato("ERROR: No hay registros menores a 5000");
+        imprimirConFormato("No hay registros menores a 5000");
         cout << "==============================================\n";
     }
 }

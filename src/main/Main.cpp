@@ -6,6 +6,8 @@
 #include "vews/productosvews.h"
 #include "vews/comprasvews.h"
 #include "vews/estudiantesvews.h"
+#include "controller/productocontroller.h"
+#include "controller/estudiantecontroller.h"
 
 using namespace std;
 
@@ -13,39 +15,47 @@ using namespace std;
 
 int main() {		
 	
-	int option;
+	int option; char op;
 	do {
 		option = menuPricipal();
 		
 		switch (option) {
 			case 1:
-				registrarStudent();
-				break;
+				registrarStudent(); break;
 			case 2:
-				registrarProducto();
-				break;
+				registrarProducto(); break;
 			case 3:
-				buy();
-				break;
+				buy(); break;
 			case 4:
-				RecargarBalance();
-				break;
+				RecargarBalance(); break;
 			case 5:
-				eliminarStudent();
-				break;
+				eliminarStudent(); break;
 			case 6:
-				cout << "\nAun esta pendiente...";
+				op = menuSecundario();
+				switch (op) {
+				case 'a':
+					consultStudent(); break;
+				case 'b':
+					imprimirProductos(); break;
+				case 'c':
+					buscarSaldoMenor(); break;
+				case 'd':
+					cout << "Pendiente..."; break;
+				default:
+					cout << "Opcion no valida."; break;
+				}
 				break;
+				
 			case 7:
-				imprimirConFormato("Saliendo...");
-				break;
+				imprimirConFormato("Saliendo..."); break;
 			default:
-				imprimirConFormato("\nOpcion no valida. Intente nuevamente");
-				break;
+				imprimirConFormato("\nOpcion no valida. Intente nuevamente"); break;
 				
 		}
 		cout << endl;
 		system("pause");
+		cout  << "\n--------------------------------------------------------------------------------------------------------\n";
+		cout << endl;
 		
 	} while(option != 7);
 }

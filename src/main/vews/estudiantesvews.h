@@ -9,65 +9,35 @@ using namespace std;
 
 //	estudiantes...
 
-	void getBadStudents1 (vector <int> &error, long long &id, char (&fullName) [50],int &section, double &initial){
-		
-		for (int i = 0; i < error.size(); i++){
-			
-			if (i == 1) {
-				cout << "\nLa cedula del estudiante ingresado es incorrecta";
-				id = getNumberLong ("\nDigite la cedula nuevamente");
-				
-			}else if (i == 2){
-				cout << "\nEl mombre del estudiante ingresado es incorrecto";
-				getChar ("\nIngrese el nombre nuevamente", fullName, 50);
-				
-			}else if (i == 3){
-				cout << "\nEl grado es incorrecto";
-				int value = getInt ("\nDigite el grado nuevamente");
-				
-			}else if (i == 4){
-				cout << "\nEl monto inicial ingresado es invalido";
-				double initial = getDouble ("\nIngrese el monto inicial nuevamente");
-				
-			}
-		}
-		error.clear();		
-	} 
-	
-	void getBadStudents2 (vector <int> &error, long long &id, double recarga){
-		
-		for (int i = 0; i < error.size(); i++){
-			
-			if (i == 1) {
-				cout << "\nLa cedula del estudiante ingresado es incorrecta";
-				id = getNumberLong ("\nDigite la cedula nuevamente");
-					
-			}else {
-				cout << "\nEl valor de la recargar es invalido"; 
-				recarga = getDouble ("Ingrese el monto que desea recargar a su saldo estudiantil nuevamente");
-				
-			}
-		}
-		error.clear();		
-	} 
-
 	void registrarStudent() {
-		system ("cls");
-		char fullName [50];
-		vector <int> error; 
 		
+		char fullName [50];
+		vector<int> error = {5}; 
+		
+		system ("cls");
+		cout << "========== Registrar Estudiante ==========";
 		do {			
-			cout << "========== Registrar Estudiante ==========";	
+
+			for(int &number : error) {
+				if(number == 5)
+					error = {1, 2, 3, 4};
+			}
 			
-			long long id = getNumberLong ("\nDigite la cedula"); 
-			getChar ("\nIngrese su nombre completo", fullName, 50);
-			int section = getInt ("\nDigite su grado");	
-			double initial = getDouble ("\nIngrese el monto inicial");
+			long long id; int section; double initial;
+			for(int &number : error) {
+				switch(number) {
+					case 1:
+						id = getNumberLong ("\nDigite la cedula"); break;
+					case 2:
+						getChar ("\nIngrese su nombre completo", fullName, 50); break;
+					case 3:
+						section = getInt ("\nDigite su grado");	break;
+					case 4:
+						initial = getDouble ("\nIngrese el monto inicial"); break;
+				}
+			}
 			
 			error = registroEstudiante(id, fullName, section, initial);
-			if (!error.empty()){
-				getBadStudents1 (error, id, fullName, section, initial);
-			}
 			
 		}while(!error.empty());
 		cout << "\nRegistro exitoso :)";
@@ -76,17 +46,27 @@ using namespace std;
 	void RecargarBalance () {
 		
 		system("cls");
-		vector <int> validation;
-		vector <int> error;
+		vector <int> error = {3};
+
+		cout << "========== Recargar Saldo Estudiantil ==========";
 		do {
-			
-			cout << "========== Recargar Saldo Estudiantil ==========";
-			long long id = getNumberLong ("\nDigite su cedula");
-			double recarga = getDouble ("\nIngrese el monto que desea recargar a su saldo estudiantil");
-			error = recargaEstudiante (id, recarga);
-			if (!error.empty()) {
-				getBadStudents2 (error, id, recarga);
+
+			for(int &number : error) {
+				if(number == 3)
+					error = {1, 2};
 			}
+
+			long long id; double recarga;
+			for(int &number : error) {
+				switch(number) {
+					case 1:
+						id = getNumberLong ("\nDigite su cedula"); break;
+					case 2:
+						recarga = getDouble ("\nIngrese el monto que desea recargar a su saldo estudiantil"); break;
+				}
+			}
+
+			error = recargaEstudiante (id, recarga); break;
 			
 		}while (!error.empty());
 		
@@ -105,6 +85,14 @@ using namespace std;
 		}while (!validation);
 		
 		cout << "\nEstudiante eliminado con exito!";
-	}	
+	}
+
+	void consultStudent() {
+		system("cls");
+		cout << "========== Consultar Estudiante ==========";
+		long long id = getNumberLong ("\nDigite la cedula del estudiante");
+		consultarEstudiante(id);
+		
+	}
 
 #endif

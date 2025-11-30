@@ -24,4 +24,16 @@ using namespace std;
 				
 	}
 
+	char menuSecundario() {
+		char op;
+		system("cls");
+		cout << "a.- Consultar un estudiante"
+		<< "\nb.- Listar todos los productos en inventario"
+		<< "\nc.- Estudiantes con saldo menor a $5000"
+		<< "\nd.- Generar archivo de retiros.txt con los estudiantes eliminados"
+		<< "\nDigite una opcion: "; cin >> op;
+
+		return op;
+	}
+
 #endif
