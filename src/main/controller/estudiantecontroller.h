@@ -74,7 +74,7 @@ bool restarSaldo(long long id, double valorDeCompra) {
 
 vector<int> registroEstudiante(long long &id, char name[50], int &grado, double &saldo) {
 	
-	vector<int> error; 	
+	vector<int> error;
     vector<Estudiante> estudiantes = readBinaryFile<Estudiante>("data/estudiantes.dat");
 
     bool exist = existsById<long long, Estudiante>("data/estudiantes.dat", id);
@@ -131,19 +131,20 @@ vector<int> recargaEstudiante(long long id, double recarga) {
         cout << "\n==============================================" << endl;
         cout << "           Monto de recarga no valido         " << endl;
         cout << "==============================================" << endl;
-        error.push_back(1);
+        error.push_back(2);
     }
 
     if (!existsById<long long, Estudiante>("data/estudiantes.dat", id)) {
         cout << "No se encontro un estudite con la cedula: " << id << endl;
-        error.push_back(2); 
+        error.push_back(1); 
     }
 
-    e = buscarEstudiante(id);
     if(!error.empty())
         return error;
 
-    if(!updateBinaryFile<Estudiante, double>("data/estudiantes.dat", e, recarga)) {
+    e = buscarEstudiante(id);
+
+    if(!updateBinaryFile<Estudiante, double>("data/estudiantes.dat", e, e.monto + recarga)) {
         cout << "Ocurrio un error al actualizar los datos porfavor intentelo nuevamente.";
         error.push_back(3);
     }
@@ -173,7 +174,7 @@ bool eliminarEstudiante(long long id) {
         return false;
     }
     
-	return deleteOnBinaryFile("data/estudiantes.dat", e);
+	return deleteOnBinaryFile("data/estudiantes.dat", e) && writeCSVFile<Estudiante>(e);
 }
 /**
  * @brief Muestra la información de un estudiante por consola.

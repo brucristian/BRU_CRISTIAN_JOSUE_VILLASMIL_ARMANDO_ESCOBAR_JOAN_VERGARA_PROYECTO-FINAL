@@ -13,6 +13,7 @@ using namespace std;
 		
 		char fullName [50];
 		vector<int> error = {5}; 
+		long long id; int section; double initial;
 		
 		system ("cls");
 		cout << "========== Registrar Estudiante ==========";
@@ -23,7 +24,6 @@ using namespace std;
 					error = {1, 2, 3, 4};
 			}
 			
-			long long id; int section; double initial;
 			for(int &number : error) {
 				switch(number) {
 					case 1:
@@ -47,6 +47,7 @@ using namespace std;
 		
 		system("cls");
 		vector <int> error = {3};
+		long long id; double recarga;
 
 		cout << "========== Recargar Saldo Estudiantil ==========";
 		do {
@@ -56,7 +57,6 @@ using namespace std;
 					error = {1, 2};
 			}
 
-			long long id; double recarga;
 			for(int &number : error) {
 				switch(number) {
 					case 1:
@@ -66,9 +66,9 @@ using namespace std;
 				}
 			}
 
-			error = recargaEstudiante (id, recarga); break;
+			error = recargaEstudiante (id, recarga);
 			
-		}while (!error.empty());
+		} while (!error.empty());
 		
 		cout << "\nSu dinero ha sido recargado con exito!";
 	}

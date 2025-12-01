@@ -1,11 +1,13 @@
 #ifndef COMPRACONTROLLER_H
 #define COMPRACONTROLLER_H
+
 #include <iostream>
 #include <vector>
 #include <string>
 #include <cstring>
 #include <ctime>
 #include <iomanip>
+
 #include "../model/compra.h"
 #include "../model/producto.h"
 #include "../model/estudiante.h"
@@ -54,7 +56,7 @@ using namespace std;
 					if (e.monto < copia_momentary[i].precio){
 						cout << "\nNo se pudo realizar su compra dado que su saldo estudiantil es menor al precio del producto";
 						cout << "\nValor del producto: " << copia_momentary[i].precio;
-						return true; 
+						return true;
 					}else {
 						restarSaldo (e.id, copia_momentary[i].precio);
 						compra.valor = copia_momentary[i].precio;
