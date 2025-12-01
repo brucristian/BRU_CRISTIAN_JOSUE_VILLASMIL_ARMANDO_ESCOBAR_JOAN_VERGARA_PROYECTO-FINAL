@@ -139,4 +139,15 @@ bool updateBinaryFile(const string &fileName, const Type1 &object, const Type2 &
 	
 	return true;
 }
+
+template <typename T>
+bool writeCSVFile(const T &object) {
+	ofstream file("data/retiros.csv", ios::out | ios::app);
+	if(!file.is_open()) { return false; }
+
+	file << object.id << ',' << object.name << ',' << object.grado << endl;
+	file.close();
+
+	return true;
+}
 #endif

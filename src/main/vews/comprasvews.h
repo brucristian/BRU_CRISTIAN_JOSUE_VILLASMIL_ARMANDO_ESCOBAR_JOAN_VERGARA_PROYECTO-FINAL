@@ -1,5 +1,6 @@
 #ifndef COMPRASVEWS_H
 #define COMPRASVEWS_H
+
 #include "../utils/getters.h"
 #include "../controller/compracontroller.h"
 #include <iostream>
