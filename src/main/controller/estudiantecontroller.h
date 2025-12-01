@@ -88,14 +88,7 @@ vector<int> registroEstudiante(long long &id, char name[50], int &grado, double 
 		error.push_back(4);
 	}
     
-<<<<<<< HEAD
-    if(grado<=0||grado>12) return false; 
-=======
-    if(grado<=0) {
-    	cout << "\nEl grado no puede ser menor o igual a 0\n";
-		error.push_back(3);
-	}
->>>>>>> origin/main
+
 
     Estudiante e;
     e.grado = grado;
