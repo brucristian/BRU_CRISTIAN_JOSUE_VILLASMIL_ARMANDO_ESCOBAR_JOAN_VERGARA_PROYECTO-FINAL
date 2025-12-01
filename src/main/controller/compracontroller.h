@@ -48,13 +48,13 @@ using namespace std;
 	    		
 		    	if(copia_momentary[i].monto<=0){
 		    		cout << "\nLo sentimos, no tenemos este producto disponible en estos momentos"; 
-					return false;
+					return true;
 				}else {
 					
 					if (e.monto < copia_momentary[i].precio){
 						cout << "\nNo se pudo realizar su compra dado que su saldo estudiantil es menor al precio del producto";
 						cout << "\nValor del producto: " << copia_momentary[i].precio;
-						return false; 
+						return true; 
 					}else {
 						restarSaldo (e.id, copia_momentary[i].precio);
 						compra.valor = copia_momentary[i].precio;
