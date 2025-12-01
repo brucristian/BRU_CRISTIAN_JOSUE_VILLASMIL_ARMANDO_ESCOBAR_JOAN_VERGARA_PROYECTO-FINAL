@@ -31,53 +31,46 @@ using namespace std;
 	bool compra (long long &id, long long &codigo){	
 	
 		Compra compra;		
-		Estudiante e;
 		
-		if (existsById<long long, Estudiante>("data/estudiantes.dat", id)) {
-	        e = buscarEstudiante(id);
-	        
-	    } else {
-	    	cout << "\nNo tenemos registrado a un estudiante con la cedula ingresada en nuestra base de datos; ";
+		if (!existsById<long long, Estudiante>("data/estudiantes.dat", id)) {
+	        cout << "\nNo tenemos registrado a un estudiante con la cedula ingresada en nuestra base de datos; ";
 	        return false;
-   		}
+	    } 
+	    
+   		Estudiante e = buscarEstudiante(id);
     	
     	
     	vector<Producto> copia_momentary = readBinaryFile <Producto>("data/productos.dat");
     	
     	for(int i=0;i<copia_momentary.size();i++){
     		
-    		
-    		
-	        if(id==copia_momentary[i].id){
-	        	cout << "\nEl codigo del producto no esta en nuestra base de datos";
-	            return false;
-	    	}
-	    	
-	    	if(copia_momentary[i].monto<=0){
-	    		cout << "\nLo sentimos, no tenemos este producto disponible en estos momentos"; 
-				return false;
-			}else {
-				
-				if (e.monto < copia_momentary[i].precio){
-					cout << "\nNo se pudo realizar su compra dado que su saldo estudiantil es menor al precio del producto";
-					return false; 
+	    	if (codigo == copia_momentary[i].id) {
+	    		
+		    	if(copia_momentary[i].monto<=0){
+		    		cout << "\nLo sentimos, no tenemos este producto disponible en estos momentos"; 
+					return false;
 				}else {
-					restarSaldo (e.id, copia_momentary[i].precio);
-					compra.valor = copia_momentary[i].precio;
-				}
-			
-				copia_momentary[i].monto--;
-				strcpy(compra.name, copia_momentary[i].name); 
-			}	
-    	}
-    	
+					
+					if (e.monto < copia_momentary[i].precio){
+						cout << "\nNo se pudo realizar su compra dado que su saldo estudiantil es menor al precio del producto";
+						cout << "\nValor del producto: " << copia_momentary[i].precio;
+						return false; 
+					}else {
+						restarSaldo (e.id, copia_momentary[i].precio);
+						compra.valor = copia_momentary[i].precio;
+					}
+							
+					updateBinaryFile<Producto, int>("data/productos.dat", copia_momentary[i], copia_momentary[i].monto - 1);
+					strcpy(compra.name, copia_momentary[i].name); 
+				}	
+				compra.fecha = obtenerFecha();
+				compra.id = e.id;
 		
-		
-		compra.fecha = obtenerFecha();
-		compra.id = e.id;
-		
-		return writeBinaryFile <Compra> ("data/compra.dat", compra);  
-		  	
+				return writeBinaryFile <Compra> ("data/compras.dat", compra);
+    		}	    
+		}
+		cout << "\nNo se encontro el producto con el codigo [" << codigo << "]";
+    	return false;
 	}
 	
 

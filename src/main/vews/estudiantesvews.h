@@ -1,46 +1,98 @@
-#ifndef MENUS_H
-#define MENUS_H
+#ifndef ESTUDIANTESVEWS_H
+#define ESTUDIANTESVEWS_H
 #include "../utils/getters.h"
 #include "../controller/estudiantecontroller.h"
 #include <iostream>
+#include <vector>
 
 using namespace std;
 
 //	estudiantes...
 
-	void registrarEstudent () {
-		system ("cls");
-		bool validation = false;
-		char fullName [50];
+	void registrarStudent() {
 		
+		char fullName [50];
+		vector<int> error = {5}; 
+		
+		system ("cls");
+		cout << "========== Registrar Estudiante ==========";
 		do {			
-			cout << "========== Registrar Estudiante ==========";	
+
+			for(int &number : error) {
+				if(number == 5)
+					error = {1, 2, 3, 4};
+			}
 			
-			long long id = getNumberLong ("Digite la cedula"); 
-			getChar ("Ingrese su nombre completo", fullName, 50);
-			int section = getInt ("Digite su grado");	
-			double initial = getDouble ("Ingrese el monto inicial");
+			long long id; int section; double initial;
+			for(int &number : error) {
+				switch(number) {
+					case 1:
+						id = getNumberLong ("\nDigite la cedula"); break;
+					case 2:
+						getChar ("\nIngrese su nombre completo", fullName, 50); break;
+					case 3:
+						section = getInt ("\nDigite su grado");	break;
+					case 4:
+						initial = getDouble ("\nIngrese el monto inicial"); break;
+				}
+			}
 			
-			validation = registroEstudiante(id, fullName, section, initial);
+			error = registroEstudiante(id, fullName, section, initial);
 			
-		}while(!validation);
+		}while(!error.empty());
 		cout << "\nRegistro exitoso :)";
 	}
 	
 	void RecargarBalance () {
 		
 		system("cls");
+		vector <int> error = {3};
+
+		cout << "========== Recargar Saldo Estudiantil ==========";
+		do {
+
+			for(int &number : error) {
+				if(number == 3)
+					error = {1, 2};
+			}
+
+			long long id; double recarga;
+			for(int &number : error) {
+				switch(number) {
+					case 1:
+						id = getNumberLong ("\nDigite su cedula"); break;
+					case 2:
+						recarga = getDouble ("\nIngrese el monto que desea recargar a su saldo estudiantil"); break;
+				}
+			}
+
+			error = recargaEstudiante (id, recarga); break;
+			
+		}while (!error.empty());
+		
+		cout << "\nSu dinero ha sido recargado con exito!";
+	}
+	
+	void eliminarStudent () {
+		system("cls");
 		bool validation = false;
 		do {
 			
-			cout << "========== Recargar Saldo Estudiantil ==========";
-			long long id = getNumberLong ("\nDigite su cedula");
-			double recarga = getDouble ("Ingrese el monto que desea recargar a su saldo estudiantil");
-			validation = recargaEstudiante (id, recarga);
+			cout << "========== Eliminar Estudiante ==========";
+			long long id = getNumberLong ("\nDigite la cedula");
+			validation = eliminarEstudiante (id);
 			
 		}while (!validation);
 		
-		cout << "Su dinero ha sido recargado con exito!";
-	}	
+		cout << "\nEstudiante eliminado con exito!";
+	}
+
+	void consultStudent() {
+		system("cls");
+		cout << "========== Consultar Estudiante ==========";
+		long long id = getNumberLong ("\nDigite la cedula del estudiante");
+		consultarEstudiante(id);
+		
+	}
 
 #endif
