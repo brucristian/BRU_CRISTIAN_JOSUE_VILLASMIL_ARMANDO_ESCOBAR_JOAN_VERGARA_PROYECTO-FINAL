@@ -2,12 +2,6 @@
     MÓDULOS Y FUNCIONALIDADES DEL SISTEMA
 ===============================================
 
-📘 Descripción General
-----------------------
-El sistema está organizado bajo una arquitectura modular inspirada en el patrón MVC (Modelo - Vista - Controlador).  
-Cada módulo se encuentra separado en carpetas dentro de la carpeta principal `src/`.  
-Esta organización permite mantener el código ordenado, facilitar la lectura, la depuración y la ampliación futura del proyecto.
-
 A continuación, se describen los módulos principales, sus funcionalidades y la relación entre ellos.
 
 
@@ -31,9 +25,10 @@ A continuación, se describen los módulos principales, sus funcionalidades y la
 - **Función principal:**  
   Define las estructuras (`struct`) que representan los datos principales del sistema.  
 - **Detalles:**
-  - `Estudiante.h`: Define los atributos de id (Cedula), name, saldo y grado para los estudiantes.
-  - `Producto.h`: Define los datos y características de los productos.
-  - `Compra.h`: Estructura que almacena la información de las compras realizadas.
+  - `Estudiante.h`: Define los atributos de id (Cedula), name, monto (saldo) y grado para los estudiantes.
+  - `Producto.h`: Define los atributos de id (codigo), name, precio y monto (cantidad) para los productos.
+  - `Compra.h`: Define los atributos de fecha, id (para la cedula del estudiante), name, y valor para las compras,
+      ademas de que es la estructura que almacena la información de las compras realizadas.
 
 
 🔹 Módulo CONTROLLER
@@ -41,44 +36,48 @@ A continuación, se describen los módulos principales, sus funcionalidades y la
 - **Archivos:** estudianteController.h, productoController.h, comprasController.h  
 - **Ubicación:** src/main/controller/  
 - **Función principal:**  
-  Implementa la lógica del negocio. Se encarga de procesar las acciones que solicita el usuario, manipular los datos de los modelos y gestionar la comunicación con los archivos del módulo `data/`.  
+  Implementa la lógica del negocio. Se encarga de procesar las acciones que solicita el usuario, manipular 
+  los datos de los modelos y gestionar la comunicación con los archivos del módulo `data/` en conjunto con filemanager.h.  
 - **Detalles:**
-  - `estudianteController.h`: Registro, consulta, edición y eliminación de estudiantes.
-  - `productoController.h`: Alta, baja y modificación de productos.
+  - `estudianteController.h`: Registro, consulta, edición, eliminación y visualizacion de estudiantes.
+  - `productoController.h`: Registros y visializacion de productos.
   - `comprasController.h`: Registra las compras y actualiza el estado de productos o estudiantes según corresponda.
 
 
 🔹 Módulo VIEWS
 --------------------------------
-- **Archivo:** menus.h  
-- **Ubicación:** src/main/views/  
-- **Función principal:**  
-  Controla la interfaz con el usuario a través de menús de texto.  
-  Muestra las opciones disponibles y dirige las acciones hacia el controlador adecuado.  
-- **Interacción:**  
-  Usa funciones del módulo `controller/` para realizar operaciones y muestra resultados al usuario.
+-- **Archivos:** menus.h, comprasviews.h, estudiantesviews.h, productosviews.h
+-- **Ubicación:** src/main/views/
+-- **Función principal:**
+Controla toda la interacción directa con el usuario mediante menús de texto organizados por categorías.
+Se encarga de mostrar las opciones disponibles, solicitar datos cuando es necesario y guiar al usuario a través de cada proceso (registro, consulta, actualización o eliminación).
+Actúa como la “capa visual” del sistema, evitando que el usuario tenga contacto con la lógica interna.
+-- **Detalles:**
+Recibe las entradas del usuario y las envía al controlador correspondiente dentro del módulo controller/, según la acción seleccionada.
+Después de que el controlador ejecuta la operación, este módulo muestra los resultados, ya sea confirmaciones, mensajes de error, listados, o información detallada de los elementos del sistema.
 
 
 🔹 Módulo UTILS
 --------------------------------
-- **Archivos:** getters.h, validaciones.h  
+- **Archivos:** getters.h, validaciones.h, filemanager.h, messages.h
 - **Ubicación:** src/utils/  
 - **Función principal:**  
   Proporciona funciones auxiliares para apoyar el funcionamiento del sistema.  
 - **Detalles:**
   - `getters.h`: Funciones que facilitan la obtención de datos del usuario.
-  - `validaciones.h`: Verifica que los datos ingresados sean válidos (números, fechas, textos, etc.).
-
+  - `validaciones.h`: Verifica que los un dato exista en los archivos.
+  - filemanager.h: Se encargar del CRUD general, escribir, leer, actualizar y eliminar datos de los archivos.
+  - messages.h: Contiene todos los mensajes de error usados en el sistema
 
 🔹 Módulo DATA
 --------------------------------
-- **Archivos:** estudiantes.dat, productos.dat, compras.dat, retiros.txt  
+- **Archivos:** estudiantes.dat, productos.dat, compras.dat, retiros.csv  
 - **Ubicación:** src/data/  
 - **Función principal:**  
   Contiene los archivos de almacenamiento persistente del sistema.  
 - **Detalles:**
   - Archivos `.dat`: Guardan estructuras binarias para mejorar la eficiencia y mantener la integridad de los datos.
-  - `retiros.txt`: Almacena en texto plano los estudiantes que han sido eliminados del archivo estudiantes.dat.
+  - `retiros.csv`: Almacena en tuna hoja de calculo los estudiantes que han sido eliminados del archivo estudiantes.dat.
 
 
 📈 Interacción entre Módulos

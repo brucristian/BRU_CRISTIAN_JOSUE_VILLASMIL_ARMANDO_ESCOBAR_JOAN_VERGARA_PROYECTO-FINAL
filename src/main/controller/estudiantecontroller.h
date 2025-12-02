@@ -79,25 +79,13 @@ vector<int> registroEstudiante(long long &id, char name[50], int &grado, double 
 
     bool exist = existsById<long long, Estudiante>("data/estudiantes.dat", id);
     if (!estudiantes.empty() && exist) {
-
-       cout << "\n==================================================\n";
-       imprimirConFormato("CEDULA DUPLICADA");
-       cout << "==============================================\n";
-       cout << "  La cedula " << id << " ya se encuentra ocupada.\n";
-       cout << "==============================================\n";
-
+        duplicateIDError(id);
 
         error.push_back(1);
     }
     
     if(saldo<5000) {
-
-    	cout << "\n==================================================\n";
-        imprimirConFormato("SALDO INVALIDO");
-        cout << "==================================================\n";
-        cout << "  El saldo inicial no puede ser menor a $5.000\n";
-        cout << "==================================================\n";
-
+        invalidInitialAmountError();
 
 		error.push_back(4);
 	}
@@ -113,13 +101,7 @@ vector<int> registroEstudiante(long long &id, char name[50], int &grado, double 
         return error;
 
     if(!writeBinaryFile<Estudiante>("data/estudiantes.dat", e)) {
-
-      cout << "\n==================================================\n";
-      imprimirConFormato("ERROR AL REGISTRAR");
-      cout << "==================================================\n";
-      cout << "  Ocurrio un error al registrar los datos. Por\n";
-      cout << "  favor intentelo nuevamente.\n";
-      cout << "==================================================\n";
+      registrationError("registrar");
 
         error.push_back(5);
     }
@@ -145,19 +127,13 @@ vector<int> recargaEstudiante(long long id, double recarga) {
 
  
     if (recarga > 500000 || recarga < 0) {
-        cout << "\n==================================================" << endl;
-        cout << "           Monto de recarga no valido         " << endl;
-        cout << "==================================================" << endl;
+        invalidRechargeAmountError();
+
         error.push_back(1);
     }
 
     if (!existsById<long long, Estudiante>("data/estudiantes.dat", id)) {
-
-        cout << "\n==================================================\n";
-        imprimirConFormato("NO ENCONTRADO");
-        cout << "==================================================\n";
-        cout << "  No se encontro un estudiante con la cedula: " << id << "\n";
-        cout << "==================================================\n";
+        studentNotFoundError();
 
         error.push_back(2); 
     }
@@ -168,12 +144,7 @@ vector<int> recargaEstudiante(long long id, double recarga) {
 
     if(!updateBinaryFile<Estudiante, double>("data/estudiantes.dat", e, recarga)) {
 
-        cout << "\n==================================================\n";
-        imprimirConFormato("ERROR AL ACTUALIZAR");
-        cout << "==================================================\n";
-        cout << "  Ocurrio un error al actualizar los datos. Por\n";
-        cout << "  favor intentelo nuevamente.\n";
-        cout << "==================================================\n";
+        registrationError("actualizar");
 
         error.push_back(3);
     }
@@ -199,11 +170,7 @@ bool eliminarEstudiante(long long id) {
     if (existsById<long long, Estudiante>("data/estudiantes.dat", id)) {
         e = buscarEstudiante(id);
     } else {
-    	cout << "\n==================================================\n";
-        imprimirConFormato("NO ENCONTRADO");
-        cout << "==================================================\n";
-        cout << "No se encontro un estudiante con la cedula: " << id << "\n";
-        cout << "==================================================\n";
+    	studentNotFoundError();
 
         return false;
     }
@@ -227,7 +194,7 @@ void consultarEstudiante(long long id) {
 
         cout << "\n=====================================================\n";
         imprimirConFormato("DATOS DEL ESTUDIANTE");
-        cout << "=====================================================\n";
+        cout << "\n=====================================================\n";
         cout << "| Cedula       | Nombre            | Grado | Saldo |\n";
         cout << "-----------------------------------------------------\n";
         cout << "| " << e.id 
@@ -238,10 +205,7 @@ void consultarEstudiante(long long id) {
         cout << "=====================================================\n";
 
     } else {
-        cout << "\n==============================================\n";
-        imprimirConFormato("ERROR: No hay registros con la cedula");
-        cout << "[" << id << "]\n";
-        cout << "==============================================\n";
+        studentNotFoundError();
     }
 }
 /**
@@ -267,7 +231,7 @@ void buscarSaldoMenor() {
 
     cout << "\n=======================================================\n";
     imprimirConFormato("ESTUDIANTES CON SALDO < 5000");
-    cout << "=======================================================\n";
+    cout << "\n=======================================================\n";
     cout << "| Cedula       | Nombre            | Grado | Saldo  |\n";
     cout << "-------------------------------------------------------\n";
 
@@ -286,7 +250,7 @@ void buscarSaldoMenor() {
     if (!encontrado) {
         cout << "\n=======================================================\n";
         imprimirConFormato("No hay registros menores a 5000");
-        cout << "=======================================================\n";
+        cout << "\n=======================================================\n";
     }
 }
 

@@ -2,12 +2,8 @@
 04 - MANEJO DE ARCHIVOS
 ===============================================
 
-📘 Descripción General
-----------------------
-El sistema implementa un mecanismo de almacenamiento persistente basado en **archivos binarios (.dat)** y archivos de texto (.txt).  
-Esto permite conservar los registros incluso después de cerrar el programa, garantizando la integridad de la información de estudiantes, productos y compras.
-
-El manejo de archivos se realiza de forma centralizada mediante funciones auxiliares ubicadas en el módulo `utils/filemanager.h`, utilizando **plantillas (templates)** para trabajar con diferentes estructuras de datos (`structs`).
+El manejo de archivos se realiza de forma centralizada mediante funciones auxiliares ubicadas en el módulo `utils/filemanager.h`, 
+utilizando **plantillas (templates)** para trabajar con diferentes estructuras de datos (`structs`).
 
 ---
 
@@ -26,13 +22,13 @@ El manejo de archivos se realiza de forma centralizada mediante funciones auxili
      - `productos.dat`  
      - `compras.dat`  
 
-2. **Archivos de Texto (.txt)**
+2. **Archivos .csv **
    - **Ubicación:** `src/main/data/`  
    - **Uso:** Registro legible de los estudiantes eliminados.  
    - **Archivo manejado:**  
-     - `retiros.txt`  
+     - `retiros.csv`  
    - **Ventajas:**  
-     - Permite generar reportes visibles y entendibles para el usuario o el administrador del sistema.  
+     - Permite generar reportes visibles y entendibles para el usuario. 
 
 ---
 

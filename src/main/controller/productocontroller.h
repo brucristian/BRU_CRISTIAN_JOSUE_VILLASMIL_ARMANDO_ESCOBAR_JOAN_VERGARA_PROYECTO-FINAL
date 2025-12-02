@@ -15,34 +15,19 @@ vector<int> agregarProducto(long long &id, char name[50], double &precio, int &m
     
     bool exist = existsById<long long, Producto>("data/productos.dat", id);
     if (!productos.empty() && exist) {
-
-        cout << "\n==================================================\n";
-        imprimirConFormato("CODIGO DUPLICADO");
-        cout << "==================================================\n";
-        cout << "     El codigo de producto {" << id <<"}\n";
-        cout << "     Ya se encuentra ocupado.\n";
-        cout << "==================================================\n";
+        duplicateCodeError(id);
 
         error.push_back(1);
     }
 
     if(precio < 0){
-
-    	cout << "\n==================================================\n";
-        imprimirConFormato("ERROR DE PRECIO");
-        cout << "==================================================\n";
-        cout << "  No puede ingresar un precio negativo.\n";
-        cout << "==================================================\n";
+        negativeQuantityError("PRECIO");
 
 		error.push_back(3);
 	}
 	
     if(monto < 0){
-    	cout << "\n==================================================\n";
-        imprimirConFormato("ERROR DE CANTIDAD");
-        cout << "==================================================\n";
-        cout << "  No puede ingresar una cantidad negativa.\n";
-        cout << "==================================================\n";
+    	negativeQuantityError("CANTIDAD");
 
 		error.push_back(4);
 	}
@@ -58,13 +43,7 @@ vector<int> agregarProducto(long long &id, char name[50], double &precio, int &m
         return error;
 
     if(!writeBinaryFile <Producto> ("data/productos.dat", p)) {
-        
-       cout << "\n==================================================\n";
-       imprimirConFormato("ERROR DE REGISTRO");
-       cout << "==================================================\n";
-       cout << "  Ocurrió un error al registrar los datos    \n";
-       cout << "  por favor intente nuevamente.              \n";
-       cout << "==================================================\n";
+       registrationError("registrar");
 
         error.push_back(5);
     }
@@ -82,7 +61,7 @@ void imprimirProductos(){
 
      cout << "\n========================================================\n";
         imprimirConFormato("PRODUCTOS EN EL INVENTARIO");
-        cout << "=========================================================\n";
+        cout << "\n=========================================================\n";
         cout << "| Codigo       | Nombre      | Precio | Cantidad  |\n";
         cout << "----------------------------------------------\n";
 

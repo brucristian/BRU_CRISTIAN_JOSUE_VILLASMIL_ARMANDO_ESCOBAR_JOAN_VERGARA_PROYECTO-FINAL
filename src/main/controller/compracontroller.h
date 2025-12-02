@@ -15,6 +15,7 @@
 #include "../utils/filemanager.h"
 #include "../utils/validaciones.h"
 #include "../utils/getters.h"
+#include "../utils/messages.h"
 
 
 using namespace std; 
@@ -36,12 +37,7 @@ using namespace std;
 		
 		if (!existsById<long long, Estudiante>("data/estudiantes.dat", id)) {
 			
-	       cout << "\n==================================================\n";
-           imprimirConFormato("NO REGISTRADO");
-           cout << "==================================================\n";
-           cout << "  No tenemos registrado a un estudiante con la\n";
-           cout << "  cedula ingresada en nuestra base de datos.\n";
-           cout << "==================================================\n";
+	       studentNotFoundError();
 
 	        return false;
 	    } 
@@ -56,29 +52,14 @@ using namespace std;
 	    	if (codigo == copia_momentary[i].id) {
 	    		
 		    	if(copia_momentary[i].monto<=0){
-		    		 cout << "\n";
-                     cout << "============================================\n";
-                     cout << "||                                        ||\n";
-                     cout << "||    ! Lo sentimos, no tenemos este      ||\n";
-                     cout << "||     producto disponible en estos       ||\n";
-                     cout << "||     momentos.                          ||\n";
-                     cout << "||                                        ||\n";
-                     cout << "============================================\n\n";
+		    		unavaibleProductError();
 					return true;
 				}else {
 					
 					if (e.monto < copia_momentary[i].precio){
-						cout << "\n====================================================\n";
-                        cout << "||                                                ||\n";
-                        cout << "||  ! No se pudo realizar su compra debido a     ||\n";
-                        cout << "||    que su saldo estudiantil es menor al       ||\n";
-                        cout << "||    precio del producto.                        ||\n";
-                        cout << "||                                                ||\n";
-                        cout << "||  Valor del producto: $" << copia_momentary[i].precio;
-                        cout << "                             ||\n";
-                        cout << "====================================================\n";
-
+						insufficientFoundsError(copia_momentary[i].precio);
 						return true;
+
 					}else {
 						restarSaldo (e.id, copia_momentary[i].precio);
 						compra.valor = copia_momentary[i].precio;
@@ -93,12 +74,8 @@ using namespace std;
 				return writeBinaryFile <Compra> ("data/compras.dat", compra);
     		}	    
 		}
-		cout << "\n============================================\n";
-        cout << "||                                        ||\n";
-        cout << "||  ! No se encontro el producto con el    ||\n";
-        cout << "||    codigo [" << codigo << "]            ||\n";
-        cout << "||                                        ||\n";
-        cout << "============================================\n";
+		
+		codeNotFoundError(codigo);
 
     	return false;
 	}

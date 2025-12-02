@@ -2,10 +2,10 @@
 
 #include <iostream>
 #include "utils/getters.h"
-#include "vews/menus.h"
-#include "vews/productosvews.h"
-#include "vews/comprasvews.h"
-#include "vews/estudiantesvews.h"
+#include "views/menus.h"
+#include "views/productosviews.h"
+#include "views/comprasviews.h"
+#include "views/estudiantesviews.h"
 #include "controller/productocontroller.h"
 #include "controller/estudiantecontroller.h"
 

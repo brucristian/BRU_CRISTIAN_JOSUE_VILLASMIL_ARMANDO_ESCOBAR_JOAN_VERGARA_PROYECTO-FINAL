@@ -2,11 +2,6 @@
 05 - DISEÑO DE ESTRUCTURAS
 ===============================================
 
-📘 Descripción General
-----------------------
-El sistema está diseñado siguiendo una estructura basada en **estructuras (structs)** en C++, manteniendo relaciones similares a un modelo de base de datos relacional.  
-Las entidades principales del proyecto son `Estudiante`, `Producto` y `Compra`, y cada una contiene los atributos necesarios para su correcta gestión dentro del sistema.
-
 El diseño busca **facilitar la persistencia en archivos binarios**, la manipulación de datos en memoria y la implementación de operaciones CRUD (Crear, Leer, Actualizar, Eliminar).
 
 ---
@@ -77,9 +72,10 @@ El diseño busca **facilitar la persistencia en archivos binarios**, la manipula
 ----------------------------
 - Todas las estructuras incluyen un **atributo `id` único** para facilitar operaciones CRUD y la relación entre entidades.  
 - Los campos `string` permiten almacenar información textual directamente, compatible con archivos binarios.  
-- La relación entre `Estudiante`, `Producto` y `Compra` se implementa mediante **referencias por ID**, simulando relaciones de clave primaria/foránea de bases de datos.  
+- La relación entre `Estudiante`, `Producto` y `Compra` se implementa mediante **referencias por ID**, simulando relaciones
+  de clave primaria/foránea de bases de datos.  
 - Este diseño permite:
-  - Generar reportes de compras por estudiante o por producto.  
+  - Generar reportes de compras por estudiante.  
   - Calcular el total de ventas.  
   - Mantener integridad de datos en archivos binarios.  
 

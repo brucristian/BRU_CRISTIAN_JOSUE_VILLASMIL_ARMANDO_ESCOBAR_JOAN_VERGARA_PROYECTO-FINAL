@@ -1,6 +1,5 @@
 #ifndef ESTUDIANTE_H
 #define ESTUDIANTE_H
-#include <iostream>
 
 // Estructura de estudiantes
 
