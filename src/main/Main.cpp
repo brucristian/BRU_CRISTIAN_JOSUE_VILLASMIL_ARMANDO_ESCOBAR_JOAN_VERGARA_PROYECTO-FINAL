@@ -40,7 +40,12 @@ int main() {
 				case 'c':
 					buscarSaldoMenor(); break;
 				case 'd':
-					cout << "El archivo de retiros se actualiza automaticamente al eliminar a un estudiante."; break;
+				    cout << "\n==================================================\n";
+                    imprimirConFormato( "     El archivo de retiros se actualiza             \n");
+                    imprimitConFormato( "     automaticamente al eliminar a un estudiante.   \n");
+                    cout << "==================================================\n";
+                    break;
+
 				default:
 					cout << "Opcion no valida."; break;
 				}

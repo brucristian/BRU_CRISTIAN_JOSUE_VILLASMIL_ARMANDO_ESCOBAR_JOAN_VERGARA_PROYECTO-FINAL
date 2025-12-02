@@ -11,7 +11,10 @@ using namespace std;
 		long long id; double value; int disponible; char fullName [50];
 
 		system ("cls");
-		cout << "========== Registrar Producto ==========";
+		cout << "\n==================================================\n";
+        cout << "||             Registrar Producto               ||\n";
+        cout << "==================================================\n";
+
 		do {			
 			for(int &number : error) {
 				if(number == 5) 
@@ -35,7 +38,10 @@ using namespace std;
 			
 		}while(!error.empty());
 		
-		cout << "\nRegistro exitoso)";
+		cout << "\n==================================================\n";
+        imprimirConFormato("                 Registro exitoso                 \n");
+        cout << "==================================================\n";
+
 	}
 
 		

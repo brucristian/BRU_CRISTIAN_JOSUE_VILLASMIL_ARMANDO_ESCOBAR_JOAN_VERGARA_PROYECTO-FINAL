@@ -35,7 +35,14 @@ using namespace std;
 		Compra compra;		
 		
 		if (!existsById<long long, Estudiante>("data/estudiantes.dat", id)) {
-	        cout << "\nNo tenemos registrado a un estudiante con la cedula ingresada en nuestra base de datos; ";
+			
+	       cout << "\n==================================================\n";
+           imprimirConFormato("NO REGISTRADO");
+           cout << "==================================================\n";
+           cout << "  No tenemos registrado a un estudiante con la\n";
+           cout << "  cedula ingresada en nuestra base de datos.\n";
+           cout << "==================================================\n";
+
 	        return false;
 	    } 
 	    
@@ -49,13 +56,28 @@ using namespace std;
 	    	if (codigo == copia_momentary[i].id) {
 	    		
 		    	if(copia_momentary[i].monto<=0){
-		    		cout << "\nLo sentimos, no tenemos este producto disponible en estos momentos"; 
+		    		 cout << "\n";
+                     cout << "============================================\n";
+                     cout << "||                                        ||\n";
+                     cout << "||    ! Lo sentimos, no tenemos este      ||\n";
+                     cout << "||     producto disponible en estos       ||\n";
+                     cout << "||     momentos.                          ||\n";
+                     cout << "||                                        ||\n";
+                     cout << "============================================\n\n";
 					return true;
 				}else {
 					
 					if (e.monto < copia_momentary[i].precio){
-						cout << "\nNo se pudo realizar su compra dado que su saldo estudiantil es menor al precio del producto";
-						cout << "\nValor del producto: " << copia_momentary[i].precio;
+						cout << "\n====================================================\n";
+                        cout << "||                                                ||\n";
+                        cout << "||  ! No se pudo realizar su compra debido a     ||\n";
+                        cout << "||    que su saldo estudiantil es menor al       ||\n";
+                        cout << "||    precio del producto.                        ||\n";
+                        cout << "||                                                ||\n";
+                        cout << "||  Valor del producto: $" << copia_momentary[i].precio;
+                        cout << "                             ||\n";
+                        cout << "====================================================\n";
+
 						return true;
 					}else {
 						restarSaldo (e.id, copia_momentary[i].precio);
@@ -71,7 +93,13 @@ using namespace std;
 				return writeBinaryFile <Compra> ("data/compras.dat", compra);
     		}	    
 		}
-		cout << "\nNo se encontro el producto con el codigo [" << codigo << "]";
+		cout << "\n============================================\n";
+        cout << "||                                        ||\n";
+        cout << "||  ! No se encontro el producto con el    ||\n";
+        cout << "||    codigo [" << codigo << "]            ||\n";
+        cout << "||                                        ||\n";
+        cout << "============================================\n";
+
     	return false;
 	}
 	

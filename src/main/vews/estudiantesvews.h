@@ -16,7 +16,10 @@ using namespace std;
 		long long id; int section; double initial;
 		
 		system ("cls");
-		cout << "========== Registrar Estudiante ==========";
+		cout << "\n==================================================\n";
+        cout << "||              Registrar Estudiante            ||\n";
+        cout << "==================================================\n";
+
 		do {			
 
 			for(int &number : error) {
@@ -40,7 +43,10 @@ using namespace std;
 			error = registroEstudiante(id, fullName, section, initial);
 			
 		}while(!error.empty());
-		cout << "\nRegistro exitoso :)";
+		cout << "\n==================================================\n";
+        imprimirConFormato("        Registro exitoso                    \n");
+        cout << "==================================================\n";
+
 	}
 	
 	void RecargarBalance () {
@@ -49,7 +55,10 @@ using namespace std;
 		vector <int> error = {3};
 		long long id; double recarga;
 
-		cout << "========== Recargar Saldo Estudiantil ==========";
+		cout << "\n==================================================\n";
+        cout << "||           Recargar Saldo Estudiantil         ||\n";
+        cout << "==================================================\n";
+
 		do {
 
 			for(int &number : error) {
@@ -70,7 +79,10 @@ using namespace std;
 			
 		} while (!error.empty());
 		
-		cout << "\nSu dinero ha sido recargado con exito!";
+		cout << "\n==================================================\n";
+        imprimirConFormato("       Su dinero ha sido recargado con exito!      \n");
+        cout << "==================================================\n";
+
 	}
 	
 	void eliminarStudent () {
@@ -78,18 +90,27 @@ using namespace std;
 		bool validation = false;
 		do {
 			
-			cout << "========== Eliminar Estudiante ==========";
+		cout << "\n==================================================\n";
+        cout << "||               Eliminar Estudiante           ||\n";
+        cout << "==================================================\n";
+
 			long long id = getNumberLong ("\nDigite la cedula");
 			validation = eliminarEstudiante (id);
 			
 		}while (!validation);
 		
-		cout << "\nEstudiante eliminado con exito!";
+		cout << "\n==================================================\n";
+        imprimirConFormato ("            Estudiante eliminado con exito!       \n");
+        cout << "==================================================\n";
+
 	}
 
 	void consultStudent() {
 		system("cls");
-		cout << "========== Consultar Estudiante ==========";
+		cout << "\n==================================================\n";
+        cout << "||             Consultar Estudiante             ||\n";
+        cout << "==================================================\n";
+
 		long long id = getNumberLong ("\nDigite la cedula del estudiante");
 		consultarEstudiante(id);
 		
