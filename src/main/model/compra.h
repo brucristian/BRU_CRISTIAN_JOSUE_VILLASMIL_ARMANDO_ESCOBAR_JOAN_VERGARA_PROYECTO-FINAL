@@ -6,7 +6,7 @@ using namespace std;
 // struct de compra
 
 	struct Compra {
-		string fecha; 
+		char fecha[80]; 
 		char name[50]; 
 		long long id; 
 		int valor; 

@@ -45,33 +45,36 @@ using namespace std;
    		Estudiante e = buscarEstudiante(id);
     	
     	
-    	vector<Producto> copia_momentary = readBinaryFile <Producto>("data/productos.dat");
+    	vector<Producto> productos = readBinaryFile <Producto>("data/productos.dat");
     	
-    	for(int i=0;i<copia_momentary.size();i++){
+    	for(int i=0;i<productos.size();i++){
     		
-	    	if (codigo == copia_momentary[i].id) {
+	    	if (codigo == productos[i].id) {
 	    		
-		    	if(copia_momentary[i].monto<=0){
+		    	if(productos[i].monto<=0){
 		    		unavaibleProductError();
 					return true;
 				}else {
 					
-					if (e.monto < copia_momentary[i].precio){
-						insufficientFoundsError(copia_momentary[i].precio);
+					if (e.monto < productos[i].precio){
+						insufficientFoundsError(productos[i].precio);
 						return true;
 
 					}else {
-						restarSaldo (e.id, copia_momentary[i].precio);
-						compra.valor = copia_momentary[i].precio;
+						restarSaldo (e.id, productos[i].precio);
+						compra.valor = productos[i].precio;
 					}
 							
-					updateBinaryFile<Producto, int>("data/productos.dat", copia_momentary[i], copia_momentary[i].monto - 1);
-					strcpy(compra.name, copia_momentary[i].name); 
+					updateBinaryFile<Producto, int>("data/productos.dat", productos[i], productos[i].monto - 1);
+					strcpy(compra.name, productos[i].name); 
 				}	
-				compra.fecha = obtenerFecha();
+				strcpy(compra.fecha, obtenerFecha().c_str());
 				compra.id = e.id;
 		
-				return writeBinaryFile <Compra> ("data/compras.dat", compra);
+				if(writeBinaryFile <Compra> ("data/compras.dat", compra)) {
+					successfullyBuy();
+					return true;
+				}
     		}	    
 		}
 		

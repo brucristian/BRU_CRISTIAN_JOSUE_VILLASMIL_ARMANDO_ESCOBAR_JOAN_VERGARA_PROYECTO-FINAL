@@ -31,10 +31,6 @@ using namespace std;
 
         system("pause");
     } while (!validation);
-
-    cout << "\n==================================================\n";
-    imprimirConFormato( "    Su compra ha sido realizada con exito.\n");
-    cout << "==================================================\n\n";
 }
 
 

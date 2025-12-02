@@ -93,8 +93,14 @@ void negativeQuantityError(string text) {
     cout << "\n==================================================\n";
     imprimirConFormato("ERROR DE " + text);
     cout << "\n==================================================\n";
-    cout << "  No puede ingresar una cantidad negativa.\n";
+    cout << "  Solo puede agregar una cantidad en el rango correcto.\n";
     cout << "==================================================\n";
+}
+
+void successfullyBuy() {
+    cout << "\n==================================================\n";
+    imprimirConFormato( "    Su compra ha sido realizada con exito.\n");
+    cout << "==================================================\n\n";
 }
 
 #endif

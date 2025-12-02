@@ -15,12 +15,6 @@ void imprimirConFormato(const string &message) {
 	cout << endl;
 }
 
-string getString(string text) {
-	string texto;
-	imprimirConFormato(text + ": "); getline(cin, texto);
-	return texto;
-}
-
 int getInt(string text) {
 	
 	int n;

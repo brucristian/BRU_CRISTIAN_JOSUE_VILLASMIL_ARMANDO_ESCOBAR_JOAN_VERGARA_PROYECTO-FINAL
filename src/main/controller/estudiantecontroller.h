@@ -19,6 +19,8 @@
 #include "../utils/filemanager.h"
 #include "../utils/validaciones.h"
 #include "../utils/getters.h"
+#include "../model/compra.h"
+#include "../utils/messages.h"
 
 using namespace std;
 
@@ -49,6 +51,10 @@ Estudiante buscarEstudiante(long long id) {
 
 
 bool restarSaldo(long long id, double valorDeCompra) {
+    if(!existsById<long long, Estudiante>("data/estudiantes.dat",id)) { 
+        studentNotFoundError();
+        return false;
+    }
     Estudiante e = buscarEstudiante(id);
 
     double nuevoSaldo = e.monto - valorDeCompra;
@@ -82,6 +88,11 @@ vector<int> registroEstudiante(long long &id, char name[50], int &grado, double 
         duplicateIDError(id);
 
         error.push_back(1);
+    }
+
+    if(grado < 1 || grado > 12) {
+        negativeQuantityError("REGISTRO");
+        error.push_back(3);
     }
     
     if(saldo<5000) {
@@ -129,20 +140,20 @@ vector<int> recargaEstudiante(long long id, double recarga) {
     if (recarga > 500000 || recarga < 0) {
         invalidRechargeAmountError();
 
-        error.push_back(1);
+        error.push_back(2);
     }
 
     if (!existsById<long long, Estudiante>("data/estudiantes.dat", id)) {
         studentNotFoundError();
 
-        error.push_back(2); 
+        error.push_back(1); 
     }
 
     e = buscarEstudiante(id);
     if(!error.empty())
         return error;
 
-    if(!updateBinaryFile<Estudiante, double>("data/estudiantes.dat", e, recarga)) {
+    if(!updateBinaryFile<Estudiante, double>("data/estudiantes.dat", e, recarga + e.monto)) {
 
         registrationError("actualizar");
 
@@ -175,6 +186,7 @@ bool eliminarEstudiante(long long id) {
         return false;
     }
     
+    writeCSVFile<Estudiante>(e);
 	return deleteOnBinaryFile("data/estudiantes.dat", e);
 }
 /**
@@ -188,10 +200,13 @@ bool eliminarEstudiante(long long id) {
 
 void consultarEstudiante(long long id) {
     Estudiante e;
+    vector<Compra> compras = readBinaryFile<Compra>("data/compras.dat");
+    
 
-    if (existsById<long long, Estudiante>("data/estudiantes.dat", id)) {
+     if (existsById<long long, Estudiante>("data/estudiantes.dat", id)) {
         e = buscarEstudiante(id);
-
+        
+        
         cout << "\n=====================================================\n";
         imprimirConFormato("DATOS DEL ESTUDIANTE");
         cout << "\n=====================================================\n";
@@ -204,9 +219,29 @@ void consultarEstudiante(long long id) {
              << " |\n";
         cout << "=====================================================\n";
 
-    } else {
-        studentNotFoundError();
+        cout << "\n=====================================================\n";
+        imprimirConFormato("COMPRAS REALIZADAS");
+        cout << "\n=====================================================\n";
+        cout << "| Fecha      | Cedula             | Producto |  Valor |\n";
+        cout << "-----------------------------------------------------\n";
+
+        for(Compra c : compras){
+            if(e.id == c.id){
+                cout << "| " << c.fecha
+                << " | " << setw(16) << left << c.id
+                << " | " << setw(5) << left << c.name
+                << " | " << setw(6) << right << c.valor
+                << " |\n";
+                cout << "=====================================================\n";
+
+            }
+
+
+        }
+        return;
     }
+    
+    studentNotFoundError();
 }
 /**
  * @brief Muestra los estudiantes con saldo menor a 5000.

@@ -2,7 +2,8 @@
 05 - DISEÑO DE ESTRUCTURAS
 ===============================================
 
-El diseño busca **facilitar la persistencia en archivos binarios**, la manipulación de datos en memoria y la implementación de operaciones CRUD (Crear, Leer, Actualizar, Eliminar).
+El diseño busca **facilitar la persistencia en archivos binarios**,
+la manipulación de datos en memoria y la implementación de operaciones CRUD (Crear, Leer, Actualizar, Eliminar).
 
 ---
 
@@ -14,10 +15,10 @@ El diseño busca **facilitar la persistencia en archivos binarios**, la manipula
    - **Estructura (struct):**
      ```cpp
      struct Estudiante {
-         int id;               // Identificador único que hace referencia a la cedula
-         char name[50];        // Nombre completo del estudiante
-	 int grado;	       // El grado que cursa el estudiante
-	 double monto;	       // Hace referencia al saldo del estudiante
+         long long id;      // Identificador único que hace referencia a la cedula
+         char name[50];     // Nombre completo del estudiante
+	       int grado;	        // El grado que cursa el estudiante
+	       double monto;	    // Hace referencia al saldo del estudiante
      };
      ```
    - **Relaciones:**  
@@ -29,8 +30,8 @@ El diseño busca **facilitar la persistencia en archivos binarios**, la manipula
    - **Estructura (struct):**
      ```cpp
      struct Producto {
-         int id;               // Identificador único que hace referencia al código del producto 
-         string nombre;        // Nombre del producto
+         long long id;         // Identificador único que hace referencia al código del producto 
+         char name [50];       // Nombre del producto
          double precio;        // Precio unitario
          int monto;            // Cantidad disponible en inventario (Hace referencia al stock)
      };
@@ -44,10 +45,10 @@ El diseño busca **facilitar la persistencia en archivos binarios**, la manipula
    - **Estructura (struct):**
      ```cpp
      struct Compra {
-         int id;               // Identificador único de la compra
-         int idEstudiante;     // Referencia al estudiante que realiza la compra
-         int idProducto;       // Referencia al producto comprado
-         string fecha;         // Fecha de la compra (DD/MM/AAAA)
+         string fecha;        // DD/MM/AAAA
+         char name[50];       // nombre del estudiante
+         long long id;        // 
+		     int valor; 
      };
      ```
    - **Relaciones:**  
