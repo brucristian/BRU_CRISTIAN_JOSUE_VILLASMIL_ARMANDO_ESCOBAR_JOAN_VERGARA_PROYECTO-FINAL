@@ -42,7 +42,7 @@ int main() {
 				case 'd':
 				    cout << "\n==================================================\n";
                     imprimirConFormato( "     El archivo de retiros se actualiza             \n");
-                    imprimitConFormato( "     automaticamente al eliminar a un estudiante.   \n");
+                    imprimirConFormato( "     automaticamente al eliminar a un estudiante.   \n");
                     cout << "==================================================\n";
                     break;
 
